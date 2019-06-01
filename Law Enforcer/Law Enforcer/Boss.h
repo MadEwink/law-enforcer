@@ -9,6 +9,9 @@
 
 class Boss : public Entity {
 protected:
+    int damage_attack;
+    int damage_dash;
+    int damage_jump;
 public:
 };
 

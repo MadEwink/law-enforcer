@@ -1,0 +1,20 @@
+<Player>
+	<Sprites>
+		<idle path="path_to_idle"/>
+		<walk path="path_to_walk"/>
+		<attack path="path_to_attack"/>
+		<dash path="path_to_dash"/>
+		<jump path="path_to_jump"/>
+		<fall path="path_to_fall"/>
+	</Sprites>
+	<Boxes>
+		<Groundbox y=value x1=value x2=value/>
+		<Hitboxes>
+			<???>
+		</Hitboxes>
+		<Hurtboxes>
+			<???>
+		</Hurtboxes>
+	</Boxes>
+	<pvmax value=value/>
+</Player>

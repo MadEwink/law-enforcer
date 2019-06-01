@@ -12,7 +12,7 @@
 class LevelObject {
 protected:
     b2Vec2 coordonnees;
-    b2EdgeShape hitbox;     // collisions
+    b2EdgeShape groundbox;     // collisions
     sf::Vector2f coordonnees_sfml;
 public:
     LevelObject(pugi::xml_node node);

@@ -9,6 +9,8 @@
 
 class Entity : public LevelObject {
 protected:
+    int pvmax;
+    int pv;
     // *TODO* sprites (animation compatible)
 public:
     Entity(pugi::xml_node node);
