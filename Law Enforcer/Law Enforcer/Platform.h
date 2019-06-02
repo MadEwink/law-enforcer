@@ -9,10 +9,13 @@
 
 class Platform : public LevelObject {
 private:
-    sf::Image sprite;
+    float32 size;
+    sf::Sprite sprite;
 public:
+    Platform(b2Vec2 coordonnees, float32 size);
     Platform(pugi::xml_node node);
-    virtual void draw(sf::RenderWindow &window) override;
+    void draw(sf::RenderWindow &window) override;
+    void update() override;
 };
 
 

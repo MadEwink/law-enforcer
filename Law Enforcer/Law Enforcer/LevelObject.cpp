@@ -3,3 +3,10 @@
 //
 
 #include "LevelObject.h"
+#include "global_definitions.h"
+
+LevelObject::LevelObject(b2Vec2 coordonnees):
+    coordonnees(coordonnees),
+    coordonnees_sfml(convert_coords(coordonnees))
+{
+}

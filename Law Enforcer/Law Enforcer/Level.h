@@ -13,9 +13,9 @@ class Level {
 private:
     std::vector<Platform> platforms;
 public:
+    Level();
     Level(std::string xml_file_path);
     void draw(sf::RenderWindow &window);
-
 };
 
 

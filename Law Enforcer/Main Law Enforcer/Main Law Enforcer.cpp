@@ -3,10 +3,28 @@
 
 #include "pch.h"
 #include <iostream>
+#include <Level.h>
+#include <global_definitions.h>
 
 int main()
 {
-    std::cout << "Hello World!\n"; 
+    std::cout << "Hello World!\n";
+    Level level;
+    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Level");
+    sf::Event event;
+    while(window.isOpen()) {
+        window.clear();
+        level.draw(window);
+        window.display();
+        while(window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                window.close();
+            }
+        }
+    }
+    return EXIT_SUCCESS;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
