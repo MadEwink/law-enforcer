@@ -12,6 +12,8 @@
 class LevelObject {
 protected:
     b2Vec2 coordonnees;
+    b2BodyDef bodyDef;
+    b2Body *body;
     b2EdgeShape groundbox;     // collisions
     sf::Vector2f coordonnees_sfml;
 public:
