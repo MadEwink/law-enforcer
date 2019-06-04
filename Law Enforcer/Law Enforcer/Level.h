@@ -5,7 +5,7 @@
 #ifndef LAW_ENFORCER_LEVEL_H
 #define LAW_ENFORCER_LEVEL_H
 
-
+#include <SFML/Graphics.hpp>
 #include <vector>
 #include "Platform.h"
 

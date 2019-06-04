@@ -1,0 +1,17 @@
+﻿  Level.cpp
+Level.obj : error LNK2001: unresolved external symbol "public: virtual class b2Shape * __thiscall b2EdgeShape::Clone(class b2BlockAllocator *)const " (?Clone@b2EdgeShape@@UBEPAVb2Shape@@PAVb2BlockAllocator@@@Z)
+LevelObject.obj : error LNK2001: unresolved external symbol "public: virtual class b2Shape * __thiscall b2EdgeShape::Clone(class b2BlockAllocator *)const " (?Clone@b2EdgeShape@@UBEPAVb2Shape@@PAVb2BlockAllocator@@@Z)
+Level.obj : error LNK2001: unresolved external symbol "public: virtual int __thiscall b2EdgeShape::GetChildCount(void)const " (?GetChildCount@b2EdgeShape@@UBEHXZ)
+LevelObject.obj : error LNK2001: unresolved external symbol "public: virtual int __thiscall b2EdgeShape::GetChildCount(void)const " (?GetChildCount@b2EdgeShape@@UBEHXZ)
+Level.obj : error LNK2001: unresolved external symbol "public: virtual bool __thiscall b2EdgeShape::TestPoint(struct b2Transform const &,struct b2Vec2 const &)const " (?TestPoint@b2EdgeShape@@UBE_NABUb2Transform@@ABUb2Vec2@@@Z)
+LevelObject.obj : error LNK2001: unresolved external symbol "public: virtual bool __thiscall b2EdgeShape::TestPoint(struct b2Transform const &,struct b2Vec2 const &)const " (?TestPoint@b2EdgeShape@@UBE_NABUb2Transform@@ABUb2Vec2@@@Z)
+Level.obj : error LNK2001: unresolved external symbol "public: virtual bool __thiscall b2EdgeShape::RayCast(struct b2RayCastOutput *,struct b2RayCastInput const &,struct b2Transform const &,int)const " (?RayCast@b2EdgeShape@@UBE_NPAUb2RayCastOutput@@ABUb2RayCastInput@@ABUb2Transform@@H@Z)
+LevelObject.obj : error LNK2001: unresolved external symbol "public: virtual bool __thiscall b2EdgeShape::RayCast(struct b2RayCastOutput *,struct b2RayCastInput const &,struct b2Transform const &,int)const " (?RayCast@b2EdgeShape@@UBE_NPAUb2RayCastOutput@@ABUb2RayCastInput@@ABUb2Transform@@H@Z)
+Level.obj : error LNK2001: unresolved external symbol "public: virtual void __thiscall b2EdgeShape::ComputeAABB(struct b2AABB *,struct b2Transform const &,int)const " (?ComputeAABB@b2EdgeShape@@UBEXPAUb2AABB@@ABUb2Transform@@H@Z)
+LevelObject.obj : error LNK2001: unresolved external symbol "public: virtual void __thiscall b2EdgeShape::ComputeAABB(struct b2AABB *,struct b2Transform const &,int)const " (?ComputeAABB@b2EdgeShape@@UBEXPAUb2AABB@@ABUb2Transform@@H@Z)
+Level.obj : error LNK2001: unresolved external symbol "public: virtual void __thiscall b2EdgeShape::ComputeMass(struct b2MassData *,float)const " (?ComputeMass@b2EdgeShape@@UBEXPAUb2MassData@@M@Z)
+LevelObject.obj : error LNK2001: unresolved external symbol "public: virtual void __thiscall b2EdgeShape::ComputeMass(struct b2MassData *,float)const " (?ComputeMass@b2EdgeShape@@UBEXPAUb2MassData@@M@Z)
+Platform.obj : error LNK2019: unresolved external symbol "public: void __thiscall b2EdgeShape::Set(struct b2Vec2 const &,struct b2Vec2 const &)" (?Set@b2EdgeShape@@QAEXABUb2Vec2@@0@Z) referenced in function "public: __thiscall Platform::Platform(struct b2Vec2,float)" (??0Platform@@QAE@Ub2Vec2@@M@Z)
+MSVCRTD.lib(exe_winmain.obj) : error LNK2019: unresolved external symbol _WinMain@16 referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+C:\Users\Quentin\Desktop\Etudes\Cours\Developpement C++\law-enforcer\Law Enforcer\External library\Box2D\lib\Box2D.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+C:\Users\Quentin\Desktop\Etudes\Cours\Developpement C++\law-enforcer\Law Enforcer\Debug\Law Enforcer.exe : fatal error LNK1120: 8 unresolved externals

@@ -2,8 +2,12 @@
 // Created by mad on 01/06/19.
 //
 
+#include "pch.h"
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Level.h"
+
+
 
 Level::Level() {
     Platform random_platform({-1,-1}, 3);
