@@ -6,7 +6,7 @@
 #define LAW_ENFORCER_GLOBAL_DEFINITIONS_H
 
 #include <SFML/System.hpp>
-#include "Box2D/Common/b2Math.h"
+#include <Box2D/Common/b2Math.h>
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600

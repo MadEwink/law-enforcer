@@ -2,10 +2,8 @@
 // Created by mad on 01/06/19.
 //
 
-#include "pch.h"
 #include "Platform.h"
 #include "global_definitions.h"
-
 
 Platform::Platform(b2Vec2 coordonnees, float32 size) :
     LevelObject(coordonnees),

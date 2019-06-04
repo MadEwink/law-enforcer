@@ -91,16 +91,10 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Users\Quentin\Desktop\Etudes\Cours\Developpement C++\law-enforcer\Law Enforcer\External library\Box2D\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Quentin\Desktop\Etudes\Cours\Developpement C++\law-enforcer\Law Enforcer\External library\Box2D\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <TargetMachine>MachineX86</TargetMachine>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

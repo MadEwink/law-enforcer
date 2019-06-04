@@ -3,8 +3,8 @@
 
 #include "pch.h"
 #include <iostream>
-#include "../Law Enforcer/Level.h"
-#include "../Law Enforcer/global_definitions.h"
+#include <Level.h>
+#include <global_definitions.h>
 
 int main()
 {

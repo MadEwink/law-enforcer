@@ -67,14 +67,10 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Users\Quentin\Desktop\Etudes\Cours\Developpement C++\law-enforcer\Law Enforcer\External library\Box2D\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\Quentin\Desktop\Etudes\Cours\Developpement C++\law-enforcer\Law Enforcer\External library\Box2D\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <TargetMachine>MachineX86</TargetMachine>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
