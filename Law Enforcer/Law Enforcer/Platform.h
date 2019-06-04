@@ -9,10 +9,10 @@
 
 class Platform : public LevelObject {
 private:
-    float32 size;
+    b2Vec2 size;
     sf::Sprite sprite;
 public:
-    Platform(b2Vec2 coordonnees, float32 size);
+    Platform(b2World &world, b2Vec2 coordonnees, b2Vec2 size);
     Platform(pugi::xml_node node);
     void draw(sf::RenderWindow &window) override;
     void update() override;

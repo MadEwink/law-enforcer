@@ -11,6 +11,10 @@
 class Player : public Entity {
 private:
 public:
+    Player();
+    Player(b2World &world, b2Vec2 coordonnees, int pvmax);
+    void draw(sf::RenderWindow &window) override;
+    void update() override;
 };
 
 

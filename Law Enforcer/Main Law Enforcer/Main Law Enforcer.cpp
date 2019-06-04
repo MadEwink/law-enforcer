@@ -13,6 +13,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Level");
     sf::Event event;
     while(window.isOpen()) {
+        level.update();
         window.clear();
         level.draw(window);
         window.display();

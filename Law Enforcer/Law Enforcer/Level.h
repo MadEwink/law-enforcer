@@ -8,14 +8,18 @@
 
 #include <vector>
 #include "Platform.h"
+#include "Player.h"
 
 class Level {
 private:
     std::vector<Platform> platforms;
+    Player player;
+    b2World world;
 public:
     Level();
     Level(std::string xml_file_path);
     void draw(sf::RenderWindow &window);
+    void update();
 };
 
 

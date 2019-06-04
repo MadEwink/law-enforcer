@@ -11,10 +11,11 @@ class Entity : public LevelObject {
 protected:
     int pvmax;
     int pv;
-    // *TODO* sprites (animation compatible)
+    b2FixtureDef fixtureDef;
+    // TODO sprites (animation compatible)
 public:
+    Entity(b2Vec2 coordonnees, int pvmax);
     Entity(pugi::xml_node node);
-    virtual void draw(sf::RenderWindow &window) override;
 };
 
 
