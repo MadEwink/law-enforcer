@@ -9,10 +9,9 @@ Level::Level() :
     world({0.0f, -9.8f})/*,
     player(this->world,{-1,-2},50)*/
 {
-    Platform random_platform(world, {-1, -1}, {3,1});
-    platforms.emplace_back(random_platform);
-    platforms.emplace_back(Platform(world, {1, -3}, {2,1}));
-    player = *(new Player(world, {0,0}, 50));
+    platforms.emplace_back(Platform(world, {0, 0}, {2,1}));
+    //Player debug_player(world, {0,0}, 50);
+    player = Player(world, {0,2}, 50);
 }
 
 void Level::draw(sf::RenderWindow &window) {

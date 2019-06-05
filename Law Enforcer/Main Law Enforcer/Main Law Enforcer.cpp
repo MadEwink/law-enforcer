@@ -3,8 +3,8 @@
 
 #include "pch.h"
 #include <iostream>
-#include <Level.h>
-#include <global_definitions.h>
+#include "Level.h"
+#include "global_definitions.h"
 
 int main()
 {
@@ -13,7 +13,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Level");
     sf::Event event;
     while(window.isOpen()) {
-        level.update();
+        //level.update();
         window.clear();
         level.draw(window);
         window.display();
