@@ -7,14 +7,17 @@
 
 
 #include "Entity.h"
+#include "Inputs.h"
 
 class Player : public Entity {
 private:
+    int jump_time_left;
+    int jump_time_max;
 public:
     Player();
     Player(b2World &world, b2Vec2 coordonnees, int pvmax);
     void draw(sf::RenderWindow &window) override;
-    void update() override;
+    void update(const Inputs &inputs) override;
 };
 
 

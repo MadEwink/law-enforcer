@@ -11,9 +11,8 @@ Platform::Platform(b2World &world, b2Vec2 coordonnees, b2Vec2 size) :
 {
     bodyDef.position.Set(this->coordonnees.x, this->coordonnees.y);
     body = world.CreateBody(&bodyDef);
-    b2PolygonShape debug_gb;
-    debug_gb.SetAsBox(size.x, size.y);
-    body->CreateFixture(&debug_gb, 0.0f);
+    groundbox.SetAsBox(size.x, size.y);
+    body->CreateFixture(&groundbox, 0.0f);
     coordonnees_sfml = convert_coords(coordonnees, -size.x*PIXELS_BY_METER, -size.y*PIXELS_BY_METER);
 }
 
@@ -24,6 +23,6 @@ void Platform::draw(sf::RenderWindow &window) {
     window.draw(shape);
 }
 
-void Platform::update() {
+void Platform::update(const Inputs &inputs) {
 
 }

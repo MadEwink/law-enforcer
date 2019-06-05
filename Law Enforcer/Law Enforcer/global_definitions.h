@@ -11,7 +11,7 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
-#define PIXELS_BY_METER 80
+#define PIXELS_BY_METER 60.0
 
 sf::Vector2f convert_coords(b2Vec2 coordonnees_b2d, int offset_x=0, int offset_y=0);
 

@@ -6,11 +6,10 @@
 #include "Level.h"
 
 Level::Level() :
-    world({0.0f, -9.8f})/*,
+    world({0.0f, -20.0f})/*,
     player(this->world,{-1,-2},50)*/
 {
-    platforms.emplace_back(Platform(world, {0, 0}, {2,1}));
-    //Player debug_player(world, {0,0}, 50);
+    platforms.emplace_back(Platform(world, {0, -3}, {8,0.5}));
     player = Player(world, {0,2}, 50);
 }
 
@@ -22,10 +21,11 @@ void Level::draw(sf::RenderWindow &window) {
     player.draw(window);
 }
 
-void Level::update() {
+void Level::update(sf::Event event) {
     float32 timeStep = 1.0f / 60.0f;
     int32 velocityIterations = 6;
     int32 positionIterations = 2;
     world.Step(timeStep, velocityIterations, positionIterations);
-    player.update();
+    inputs.update(event);
+    player.update(inputs);
 }

@@ -4,21 +4,22 @@
 
 #include "Player.h"
 #include "global_definitions.h"
+#include "Inputs.h"
 
-#define PLAYER_SIZE 1
+#define PLAYER_SIZE 0.5
 
 Player::Player() : Entity({0,0}, 1) {}
 
 Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
-    Entity(coordonnees, pvmax)
+    Entity(coordonnees, pvmax),
+    jump_time_max(30)
 {
-    coordonnees_sfml=convert_coords(this->coordonnees, 0,-PLAYER_SIZE*PIXELS_BY_METER/2);
+    coordonnees_sfml=convert_coords(this->coordonnees, -PLAYER_SIZE*PIXELS_BY_METER,-PLAYER_SIZE*PIXELS_BY_METER);
     bodyDef.type = b2_dynamicBody;
     bodyDef.fixedRotation = true;
     bodyDef.position.Set(this->coordonnees.x, this->coordonnees.y);
     body = world.CreateBody(&bodyDef);
-    //groundbox.Set(this->coordonnees, {this->coordonnees.x, this->coordonnees.y});
-    groundbox.Set({-PLAYER_SIZE/2,-PLAYER_SIZE/2}, {PLAYER_SIZE/2, -PLAYER_SIZE/2});
+    groundbox.SetAsBox(PLAYER_SIZE, PLAYER_SIZE);
     fixtureDef.shape = &groundbox;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.3f;
@@ -27,20 +28,53 @@ Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
 
 void Player::draw(sf::RenderWindow &window) {
     //coordonnees_sfml = convert_coords(body->GetPosition(),0,-PLAYER_SIZE*PIXELS_BY_METER/2);
-    coordonnees_sfml = convert_coords(body->GetPosition(),0,0);
-    sf::RectangleShape shape({PLAYER_SIZE*PIXELS_BY_METER,PLAYER_SIZE*PIXELS_BY_METER});
+    coordonnees_sfml=convert_coords(body->GetPosition(), -PLAYER_SIZE*PIXELS_BY_METER,-PLAYER_SIZE*PIXELS_BY_METER);
+    sf::RectangleShape shape({PLAYER_SIZE*PIXELS_BY_METER*2,PLAYER_SIZE*PIXELS_BY_METER*2});
     shape.setPosition(coordonnees_sfml);
     shape.setFillColor(sf::Color(60,0,60));
     window.draw(shape);
-    sf::CircleShape debug_circle(5);
-    debug_circle.setFillColor(sf::Color::Red);
-    debug_circle.setPosition(SCREEN_WIDTH/2+body->GetPosition().x*PIXELS_BY_METER, SCREEN_WIDTH/2-body->GetPosition().y*PIXELS_BY_METER);
-    sf::Vector2f position = debug_circle.getPosition();
-    window.draw(debug_circle);
-    debug_circle.setPosition(coordonnees_sfml);
-    position = debug_circle.getPosition();
-    window.draw(debug_circle);
 }
 
-void Player::update() {
+void Player::update(const Inputs &inputs) {
+    /*
+    if (body->GetContactList() != nullptr)
+        body->ApplyForceToCenter({0,40}, true);
+        */
+    b2Vec2 speed_applied(body->GetLinearVelocity());
+    //b2Vec2 speed_applied(0,0);
+    int max_speed = 10;
+    int jump_speed = 8;
+    if (inputs.get_pressed(left)) speed_applied.x = -max_speed;
+    else if (inputs.get_pressed(right)) speed_applied.x = max_speed;
+    else
+    {
+        if (speed_applied.x > 0) speed_applied.x -= 0.7f;
+        else if (speed_applied.x < 0) speed_applied.x += 0.7f;
+    }
+    if (inputs.get_pressed(jump))
+    {
+        auto contact = body->GetContactList();
+        if (contact != nullptr && contact->contact->IsTouching())
+        {
+            jump_time_left = jump_time_max;
+            b2Manifold *manifold = contact->contact->GetManifold();
+            if (abs(manifold->localNormal.x) < abs(manifold->localNormal.y))
+                speed_applied.y = jump_speed;
+        }
+        else if (jump_time_left > 0)
+        {
+            speed_applied.y = jump_speed-(jump_time_max-jump_time_left)*(jump_speed/jump_time_max);
+            jump_time_left --;
+        }
+        else
+        {
+            speed_applied.y / 2;
+        }
+    }
+    else
+    {
+        jump_time_left = 0;
+        speed_applied.y / 2;
+    }
+    body->SetLinearVelocity(speed_applied);
 }

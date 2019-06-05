@@ -3,17 +3,21 @@
 
 #include "pch.h"
 #include <iostream>
+#include <chrono>
+#include <thread>
 #include "Level.h"
 #include "global_definitions.h"
 
 int main()
 {
     std::cout << "Hello World!\n";
+    std::chrono::time_point<std::chrono::system_clock> current_time;
     Level level;
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Level");
     sf::Event event;
     while(window.isOpen()) {
-        //level.update();
+        current_time = std::chrono::system_clock::now();
+        level.update(event);
         window.clear();
         level.draw(window);
         window.display();
@@ -24,6 +28,7 @@ int main()
                 window.close();
             }
         }
+        std::this_thread::sleep_until(current_time + std::chrono::milliseconds(16));
     }
     return EXIT_SUCCESS;
 }
