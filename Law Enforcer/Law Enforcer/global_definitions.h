@@ -1,6 +1,7 @@
 //
 // Created by mad on 02/06/19.
 //
+#pragma once
 
 #ifndef LAW_ENFORCER_GLOBAL_DEFINITIONS_H
 #define LAW_ENFORCER_GLOBAL_DEFINITIONS_H
