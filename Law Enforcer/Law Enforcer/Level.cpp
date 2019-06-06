@@ -4,15 +4,15 @@
 
 #include <iostream>
 #include "Level.h"
+#include "global_definitions.h"
 
 Level::Level() :
-    world({0.0f, -9.8f})/*,
-    player(this->world,{-1,-2},50)*/
+    world({0.0f, -20.0f}),
+    player(world,{-1,-2},50)
 {
-    Platform random_platform(world, {-1, -1}, {3,1});
-    platforms.emplace_back(random_platform);
-    platforms.emplace_back(Platform(world, {1, -3}, {2,1}));
-    player = *(new Player(world, {0,0}, 50));
+    platforms.emplace_back(Platform(world, {0, 0.5 - WORLD_HEIGHT / 2.0}, {WORLD_WIDTH / 2.0, 0.5}, 1));
+    platforms.emplace_back(Platform(world, {0.5 - WORLD_WIDTH / 2.0, 0}, {0.5, WORLD_HEIGHT / 2.0}, 0));
+    platforms.emplace_back(Platform(world, {WORLD_WIDTH / 2.0 - 0.5, 0}, {0.5, WORLD_HEIGHT / 2.0}, 0));
 }
 
 void Level::draw(sf::RenderWindow &window) {
@@ -23,10 +23,11 @@ void Level::draw(sf::RenderWindow &window) {
     player.draw(window);
 }
 
-void Level::update() {
+void Level::update(sf::Event event) {
     float32 timeStep = 1.0f / 60.0f;
     int32 velocityIterations = 6;
     int32 positionIterations = 2;
     world.Step(timeStep, velocityIterations, positionIterations);
-    player.update();
+    inputs.update(event);
+    player.update(inputs);
 }

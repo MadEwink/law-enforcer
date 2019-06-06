@@ -9,17 +9,19 @@
 #include <vector>
 #include "Platform.h"
 #include "Player.h"
+#include "Inputs.h"
 
 class Level {
 private:
     std::vector<Platform> platforms;
-    Player player;
     b2World world;
+    Player player;
+    Inputs inputs;
 public:
     Level();
     Level(std::string xml_file_path);
     void draw(sf::RenderWindow &window);
-    void update();
+    void update(sf::Event event);
 };
 
 
