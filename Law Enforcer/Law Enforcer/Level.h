@@ -14,8 +14,8 @@
 class Level {
 private:
     std::vector<Platform> platforms;
-    Player player;
     b2World world;
+    Player player;
     Inputs inputs;
 public:
     Level();

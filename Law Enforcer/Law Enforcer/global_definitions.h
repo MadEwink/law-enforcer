@@ -8,10 +8,13 @@
 #include <SFML/System.hpp>
 #include <Box2D/Box2D.h>
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
-
 #define PIXELS_BY_METER 60.0
+
+#define WORLD_WIDTH 13.0
+#define WORLD_HEIGHT 10.0
+
+#define SCREEN_WIDTH WORLD_WIDTH*PIXELS_BY_METER
+#define SCREEN_HEIGHT WORLD_HEIGHT*PIXELS_BY_METER
 
 sf::Vector2f convert_coords(b2Vec2 coordonnees_b2d, int offset_x=0, int offset_y=0);
 

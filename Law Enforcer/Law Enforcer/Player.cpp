@@ -6,7 +6,7 @@
 #include "global_definitions.h"
 #include "Inputs.h"
 
-#define PLAYER_SIZE 0.5
+#define PLAYER_SIZE 0.8
 
 Player::Player() : Entity({0,0}, 1) {}
 
@@ -29,10 +29,20 @@ Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
 void Player::draw(sf::RenderWindow &window) {
     //coordonnees_sfml = convert_coords(body->GetPosition(),0,-PLAYER_SIZE*PIXELS_BY_METER/2);
     coordonnees_sfml=convert_coords(body->GetPosition(), -PLAYER_SIZE*PIXELS_BY_METER,-PLAYER_SIZE*PIXELS_BY_METER);
-    sf::RectangleShape shape({PLAYER_SIZE*PIXELS_BY_METER*2,PLAYER_SIZE*PIXELS_BY_METER*2});
+    sf::RectangleShape shape({PLAYER_SIZE*PIXELS_BY_METER*2.0,PLAYER_SIZE*PIXELS_BY_METER*2.0});
     shape.setPosition(coordonnees_sfml);
-    shape.setFillColor(sf::Color(60,0,60));
+    shape.setFillColor(sf::Color(145,215,255));
+    sf::RectangleShape shape2({PLAYER_SIZE*PIXELS_BY_METER*2.0, PLAYER_SIZE*PIXELS_BY_METER*2.0*3.0/5.0});
+    sf::Vector2f delta(0,PLAYER_SIZE*PIXELS_BY_METER*2.0/5.0);
+    shape2.setPosition(coordonnees_sfml+delta);
+    shape2.setFillColor(sf::Color(255,102,255));
+    sf::RectangleShape shape3({PLAYER_SIZE*PIXELS_BY_METER*2.0, PLAYER_SIZE*PIXELS_BY_METER*2.0/5.0});
+    sf::Vector2f delta2(0,PLAYER_SIZE*PIXELS_BY_METER*2.0*2.0/5.0);
+    shape3.setPosition(coordonnees_sfml+delta2);
+    shape3.setFillColor(sf::Color::White);
     window.draw(shape);
+    window.draw(shape2);
+    window.draw(shape3);
 }
 
 void Player::update(const Inputs &inputs) {
@@ -48,6 +58,7 @@ void Player::update(const Inputs &inputs) {
     else if (inputs.get_pressed(right)) speed_applied.x = max_speed;
     else
     {
+        if (abs(speed_applied.x) < 0.7f) speed_applied.x = 0;
         if (speed_applied.x > 0) speed_applied.x -= 0.7f;
         else if (speed_applied.x < 0) speed_applied.x += 0.7f;
     }

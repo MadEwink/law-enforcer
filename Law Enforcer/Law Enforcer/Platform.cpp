@@ -5,14 +5,19 @@
 #include "Platform.h"
 #include "global_definitions.h"
 
-Platform::Platform(b2World &world, b2Vec2 coordonnees, b2Vec2 size) :
+Platform::Platform(b2World &world, b2Vec2 coordonnees, b2Vec2 size, float32 friction) :
     LevelObject(coordonnees),
     size(size)
 {
     bodyDef.position.Set(this->coordonnees.x, this->coordonnees.y);
     body = world.CreateBody(&bodyDef);
     groundbox.SetAsBox(size.x, size.y);
-    body->CreateFixture(&groundbox, 0.0f);
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &groundbox;
+    fixtureDef.friction = friction;
+    fixtureDef.density=0.0f;
+    body->CreateFixture(&fixtureDef);
+    //body->CreateFixture(&groundbox, 0.0f);
     coordonnees_sfml = convert_coords(coordonnees, -size.x*PIXELS_BY_METER, -size.y*PIXELS_BY_METER);
 }
 

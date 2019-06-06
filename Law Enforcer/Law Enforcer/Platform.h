@@ -13,7 +13,7 @@ private:
     b2Vec2 size;
     sf::Sprite sprite;
 public:
-    Platform(b2World &world, b2Vec2 coordonnees, b2Vec2 size);
+    Platform(b2World &world, b2Vec2 coordonnees, b2Vec2 size, float32 friction);
     Platform(pugi::xml_node node);
     void draw(sf::RenderWindow &window) override;
     void update(const Inputs &inputs) override;
