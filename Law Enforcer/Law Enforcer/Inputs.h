@@ -1,7 +1,6 @@
 //
 // Created by mad on 01/06/19.
 //
-#pragma once
 
 #ifndef LAW_ENFORCER_INPUTS_H
 #define LAW_ENFORCER_INPUTS_H

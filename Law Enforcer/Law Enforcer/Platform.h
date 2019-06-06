@@ -1,12 +1,10 @@
 //
 // Created by mad on 01/06/19.
 //
-#pragma once
 
 #ifndef LAW_ENFORCER_PLATFORM_H
 #define LAW_ENFORCER_PLATFORM_H
 
-#include <SFML/System.hpp>
 #include "LevelObject.h"
 
 class Platform : public LevelObject {
