@@ -14,8 +14,13 @@ Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
     Entity(coordonnees, pvmax),
     jump_time_max(15),
     jump_time_left(0),
+    max_speed(10),
+    jump_speed(8),
     can_jump(false)
 {
+    b2BodyDef bodyDef;
+    b2PolygonShape groundbox;
+    b2FixtureDef fixtureDef;
     coordonnees_sfml=convert_coords(this->coordonnees, -PLAYER_SIZE*PIXELS_BY_METER,-PLAYER_SIZE*PIXELS_BY_METER);
     bodyDef.type = b2_dynamicBody;
     bodyDef.fixedRotation = true;
@@ -58,9 +63,6 @@ void Player::draw(sf::RenderWindow &window) {
 
 void Player::update(const Inputs &inputs) {
     b2Vec2 speed_applied(body->GetLinearVelocity());
-    auto contact = body->GetContactList();
-    int max_speed = 10;
-    int jump_speed = 8;
     if (inputs.get_pressed(left)) speed_applied.x = -max_speed;
     else if (inputs.get_pressed(right)) speed_applied.x = max_speed;
     else
@@ -69,29 +71,27 @@ void Player::update(const Inputs &inputs) {
         if (speed_applied.x > 0) speed_applied.x -= 0.7f;
         else if (speed_applied.x < 0) speed_applied.x += 0.7f;
     }
-    if (inputs.get_pressed(jump))
-    {
-        if (contact != nullptr && contact->contact->IsTouching() && can_jump)
-        {
-            speed_applied.y = jump_speed;
-            jump_time_left = jump_time_max;
-        }
-        else if (jump_time_left > 0)
-        {
-            speed_applied.y = jump_speed-(jump_time_max-jump_time_left)*(jump_speed/jump_time_max);
-            jump_time_left --;
-        }
-        else
-        {
-            speed_applied.y / 2;
-        }
-    }
-    else
-    {
-        jump_time_left = 0;
-        speed_applied.y / 2;
-    }
+    speed_applied.y = jump(true, inputs.get_pressed(action_key::jump), speed_applied.y);
     body->SetLinearVelocity(speed_applied);
+}
+
+float32 Player::jump(bool world_jump_rule, bool input_jump, float32 current_vspeed) {
+    if (world_jump_rule) {
+        auto contact = body->GetContactList();
+        if (input_jump) {
+            if (contact != nullptr && contact->contact->IsTouching() && can_jump) {
+                current_vspeed = jump_speed;
+                jump_time_left = jump_time_max;
+            } else if (jump_time_left > 0) {
+                current_vspeed = jump_speed - (jump_time_max - jump_time_left) * (jump_speed / jump_time_max);
+                jump_time_left--;
+            }
+        } else {
+            jump_time_left = 0;
+        }
+        return current_vspeed;
+    }
+    return 0;
 }
 
 void Player::setJump(bool jump) {

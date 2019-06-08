@@ -9,6 +9,8 @@ Platform::Platform(b2World &world, b2Vec2 coordonnees, b2Vec2 size, float32 fric
     LevelObject(coordonnees),
     size(size)
 {
+    b2BodyDef bodyDef;
+    b2PolygonShape groundbox;
     bodyDef.position.Set(this->coordonnees.x, this->coordonnees.y);
     body = world.CreateBody(&bodyDef);
     groundbox.SetAsBox(size.x, size.y);
