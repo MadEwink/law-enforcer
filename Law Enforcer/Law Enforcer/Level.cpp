@@ -11,11 +11,11 @@ Level::Level() :
     player(world,{0,0},50),
     pcl(&player)
 {
-    platforms.emplace_back(Platform(world, {0, 0.5 - WORLD_HEIGHT / 2.0}, {WORLD_WIDTH / 2.0, 0.5}, 1));
-    platforms.emplace_back(Platform(world, {0.5 - WORLD_WIDTH / 2.0, 0}, {0.5, WORLD_HEIGHT / 2.0}, 0));
-    platforms.emplace_back(Platform(world, {WORLD_WIDTH / 2.0 - 0.5, 0}, {0.5, WORLD_HEIGHT / 2.0}, 0));
-    platforms.emplace_back(Platform(world, {-WORLD_WIDTH*2.0/10.0,-WORLD_HEIGHT/8.0}, {WORLD_WIDTH/10.0,0.1}, 0));
-    platforms.emplace_back(Platform(world, {WORLD_WIDTH*2.0/10.0,-WORLD_HEIGHT/8.0}, {WORLD_WIDTH/10.0,0.1}, 0));
+    platforms.emplace_back(Platform(world, {0, 0.1 - WORLD_HEIGHT / 2.0}, {WORLD_WIDTH / 2.0, 0.1}, 1));
+    platforms.emplace_back(Platform(world, {0.1 - WORLD_WIDTH / 2.0, 0}, {0.1, WORLD_HEIGHT / 2.0}, 0));
+    platforms.emplace_back(Platform(world, {WORLD_WIDTH / 2.0 - 0.1, 0}, {0.1, WORLD_HEIGHT / 2.0}, 0));
+    platforms.emplace_back(Platform(world, {-WORLD_WIDTH*2.0/10.0,-WORLD_HEIGHT/8.0-0.2}, {WORLD_WIDTH/10.0,0.1}, 0));
+    platforms.emplace_back(Platform(world, {WORLD_WIDTH*2.0/10.0,-WORLD_HEIGHT/8.0-0.2}, {WORLD_WIDTH/10.0,0.1}, 0));
     world.SetContactListener(&pcl);
 }
 

@@ -23,7 +23,7 @@ void PlayerContactListener::BeginContact(b2Contact *contact) {
     }
     if (fFootSensor != nullptr)
     {
-        if (other != nullptr && other->GetUserData() == (void*)e_groundbox);
+        if (other != nullptr && other->GetUserData() == (void*)p_groundbox);
         {
             player->setJump(true);
         }
