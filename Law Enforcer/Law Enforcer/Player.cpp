@@ -6,13 +6,15 @@
 #include "global_definitions.h"
 #include "Inputs.h"
 
-#define PLAYER_SIZE 0.8
+#define PLAYER_SIZE 0.3
 
 Player::Player() : Entity({0,0}, 1) {}
 
 Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
     Entity(coordonnees, pvmax),
-    jump_time_max(30)
+    jump_time_max(15),
+    jump_time_left(0),
+    can_jump(false)
 {
     coordonnees_sfml=convert_coords(this->coordonnees, -PLAYER_SIZE*PIXELS_BY_METER,-PLAYER_SIZE*PIXELS_BY_METER);
     bodyDef.type = b2_dynamicBody;
@@ -23,7 +25,16 @@ Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
     fixtureDef.shape = &groundbox;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.3f;
+    fixtureDef.userData = (void*)e_groundbox;
     body->CreateFixture(&fixtureDef);
+    b2CircleShape groundDetector;
+    groundDetector.m_radius = PLAYER_SIZE-0.001;
+    groundDetector.m_p.Set(0,-PLAYER_SIZE);
+    b2FixtureDef gDec_fixtureDef;
+    gDec_fixtureDef.shape = &groundDetector;
+    gDec_fixtureDef.isSensor = true;
+    gDec_fixtureDef.userData = (void*)e_footsensor;
+    body->CreateFixture(&gDec_fixtureDef);
 }
 
 void Player::draw(sf::RenderWindow &window) {
@@ -46,12 +57,8 @@ void Player::draw(sf::RenderWindow &window) {
 }
 
 void Player::update(const Inputs &inputs) {
-    /*
-    if (body->GetContactList() != nullptr)
-        body->ApplyForceToCenter({0,40}, true);
-        */
     b2Vec2 speed_applied(body->GetLinearVelocity());
-    //b2Vec2 speed_applied(0,0);
+    auto contact = body->GetContactList();
     int max_speed = 10;
     int jump_speed = 8;
     if (inputs.get_pressed(left)) speed_applied.x = -max_speed;
@@ -64,13 +71,10 @@ void Player::update(const Inputs &inputs) {
     }
     if (inputs.get_pressed(jump))
     {
-        auto contact = body->GetContactList();
-        if (contact != nullptr && contact->contact->IsTouching())
+        if (contact != nullptr && contact->contact->IsTouching() && can_jump)
         {
+            speed_applied.y = jump_speed;
             jump_time_left = jump_time_max;
-            b2Manifold *manifold = contact->contact->GetManifold();
-            if (abs(manifold->localNormal.x) < abs(manifold->localNormal.y))
-                speed_applied.y = jump_speed;
         }
         else if (jump_time_left > 0)
         {
@@ -88,4 +92,8 @@ void Player::update(const Inputs &inputs) {
         speed_applied.y / 2;
     }
     body->SetLinearVelocity(speed_applied);
+}
+
+void Player::setJump(bool jump) {
+    can_jump = jump;
 }

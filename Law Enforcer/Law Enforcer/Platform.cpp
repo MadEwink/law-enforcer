@@ -22,7 +22,7 @@ Platform::Platform(b2World &world, b2Vec2 coordonnees, b2Vec2 size, float32 fric
 }
 
 void Platform::draw(sf::RenderWindow &window) {
-    sf::RectangleShape shape({size.x*((float)2)*PIXELS_BY_METER, size.y*((float)2)*PIXELS_BY_METER});
+    sf::RectangleShape shape({size.x*2.0*PIXELS_BY_METER, size.y*2.0*PIXELS_BY_METER});
     shape.setFillColor(sf::Color::Blue);
     shape.setPosition(coordonnees_sfml);
     window.draw(shape);

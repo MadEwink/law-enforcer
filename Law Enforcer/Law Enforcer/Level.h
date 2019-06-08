@@ -10,6 +10,7 @@
 #include "Platform.h"
 #include "Player.h"
 #include "Inputs.h"
+#include "PlayerContactListener.h"
 
 class Level {
 private:
@@ -17,6 +18,7 @@ private:
     b2World world;
     Player player;
     Inputs inputs;
+    PlayerContactListener pcl;
 public:
     Level();
     Level(std::string xml_file_path);

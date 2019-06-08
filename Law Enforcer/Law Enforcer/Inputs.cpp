@@ -14,6 +14,7 @@ Inputs::Inputs()
     key_map[sf::Keyboard::Right] = right;
     key_map[sf::Keyboard::Space] = jump;
     key_map[sf::Keyboard::Up] = jump;
+    key_map[sf::Keyboard::Down] = attack;
 }
 
 void Inputs::update(sf::Event event) {
