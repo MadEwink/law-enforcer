@@ -5,6 +5,7 @@
 #ifndef LAW_ENFORCER_INPUTS_H
 #define LAW_ENFORCER_INPUTS_H
 
+#include "pch.h"
 #include <map>
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Event.hpp>

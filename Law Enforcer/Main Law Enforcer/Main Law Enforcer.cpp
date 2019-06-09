@@ -5,8 +5,8 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
-#include "Level.h"
-#include "global_definitions.h"
+#include "../Law Enforcer/Level.h"
+#include "../Law Enforcer/global_definitions.h"
 
 int main()
 {

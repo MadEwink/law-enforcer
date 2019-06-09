@@ -5,6 +5,7 @@
 #ifndef LAW_ENFORCER_PLATFORM_H
 #define LAW_ENFORCER_PLATFORM_H
 
+#include "pch.h"
 #include "LevelObject.h"
 #include "Inputs.h"
 
