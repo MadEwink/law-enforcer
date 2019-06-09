@@ -17,9 +17,10 @@
 #define SCREEN_HEIGHT WORLD_HEIGHT*PIXELS_BY_METER
 
 typedef enum {
-    p_groundbox,
-    e_groundbox,
-    e_footsensor
+    plateform_groundbox,
+    entity_groundbox,
+    player_footsensor,
+    boss_footsensor
 } BoxTypes;
 
 typedef struct {

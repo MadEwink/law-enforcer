@@ -17,7 +17,7 @@ Platform::Platform(b2World &world, b2Vec2 coordonnees, b2Vec2 size, float32 fric
     fixtureDef.shape = &groundbox;
     fixtureDef.friction = friction;
     fixtureDef.density=0.0f;
-    fixtureDef.userData = (void*)p_groundbox;
+    fixtureDef.userData = (void*)plateform_groundbox;
     body->CreateFixture(&fixtureDef);
     //body->CreateFixture(&groundbox, 0.0f);
     coordonnees_sfml = convert_coords(coordonnees, -size.x*PIXELS_BY_METER, -size.y*PIXELS_BY_METER);

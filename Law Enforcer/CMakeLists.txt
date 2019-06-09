@@ -9,11 +9,11 @@ include_directories(Test)
 
 add_executable(Law_Enforcer
         "Law Enforcer/Law Enforcer.cpp"
-        "Main Law Enforcer/Main Law Enforcer.cpp" "Law Enforcer/LevelObject.cpp" "Law Enforcer/LevelObject.h" "Law Enforcer/Platform.cpp" "Law Enforcer/Platform.h" "Law Enforcer/Entity.cpp" "Law Enforcer/Entity.h" "Law Enforcer/Level.cpp" "Law Enforcer/Level.h" "Law Enforcer/Inputs.cpp" "Law Enforcer/Inputs.h" "Law Enforcer/Player.cpp" "Law Enforcer/Player.h" "Law Enforcer/Boss.cpp" "Law Enforcer/Boss.h" "Law Enforcer/global_definitions.h" "Law Enforcer/global_definitions.cpp" "Law Enforcer/PlayerContactListener.cpp" "Law Enforcer/PlayerContactListener.h")
+        "Main Law Enforcer/Main Law Enforcer.cpp" "Law Enforcer/LevelObject.cpp" "Law Enforcer/LevelObject.h" "Law Enforcer/Platform.cpp" "Law Enforcer/Platform.h" "Law Enforcer/Entity.cpp" "Law Enforcer/Entity.h" "Law Enforcer/Level.cpp" "Law Enforcer/Level.h" "Law Enforcer/Inputs.cpp" "Law Enforcer/Inputs.h" "Law Enforcer/Player.cpp" "Law Enforcer/Player.h" "Law Enforcer/Boss.cpp" "Law Enforcer/Boss.h" "Law Enforcer/global_definitions.h" "Law Enforcer/global_definitions.cpp" "Law Enforcer/LevelContactListener.cpp" "Law Enforcer/LevelContactListener.h")
 
 add_executable(gtest_LE
         "Law Enforcer/Law Enforcer.cpp"
-        "Test/test.cpp" "Law Enforcer/LevelObject.cpp" "Law Enforcer/LevelObject.h" "Law Enforcer/Platform.cpp" "Law Enforcer/Platform.h" "Law Enforcer/Entity.cpp" "Law Enforcer/Entity.h" "Law Enforcer/Level.cpp" "Law Enforcer/Level.h" "Law Enforcer/Inputs.cpp" "Law Enforcer/Inputs.h" "Law Enforcer/Player.cpp" "Law Enforcer/Player.h" "Law Enforcer/Boss.cpp" "Law Enforcer/Boss.h" "Law Enforcer/global_definitions.h" "Law Enforcer/global_definitions.cpp" "Law Enforcer/PlayerContactListener.cpp" "Law Enforcer/PlayerContactListener.h")
+        "Test/test.cpp" "Law Enforcer/LevelObject.cpp" "Law Enforcer/LevelObject.h" "Law Enforcer/Platform.cpp" "Law Enforcer/Platform.h" "Law Enforcer/Entity.cpp" "Law Enforcer/Entity.h" "Law Enforcer/Level.cpp" "Law Enforcer/Level.h" "Law Enforcer/Inputs.cpp" "Law Enforcer/Inputs.h" "Law Enforcer/Player.cpp" "Law Enforcer/Player.h" "Law Enforcer/Boss.cpp" "Law Enforcer/Boss.h" "Law Enforcer/global_definitions.h" "Law Enforcer/global_definitions.cpp" "Law Enforcer/LevelContactListener.cpp" "Law Enforcer/LevelContactListener.h")
 
 find_package(GTest REQUIRED)
 if(GTest_FOUND)

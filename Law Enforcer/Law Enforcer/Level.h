@@ -11,15 +11,16 @@
 #include "Platform.h"
 #include "Player.h"
 #include "Inputs.h"
-#include "PlayerContactListener.h"
+#include "LevelContactListener.h"
 
 class Level {
 private:
     std::vector<Platform> platforms;
     b2World world;
     Player player;
+    Boss boss;
     Inputs inputs;
-    PlayerContactListener pcl;
+    LevelContactListener lcl;
     WorldRules worldRules;
 public:
     Level();

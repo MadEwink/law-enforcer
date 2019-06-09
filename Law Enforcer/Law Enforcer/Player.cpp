@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Inputs.h"
 #include "Level.h"
+#include "Entity.h"
 
 #define PLAYER_SIZE 0.3
 
@@ -13,8 +14,7 @@ Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
     jump_time_max(15),
     jump_time_left(0),
     max_speed(10),
-    jump_speed(8),
-    can_jump(false)
+    jump_speed(8)
 {
     b2BodyDef bodyDef;
     b2PolygonShape groundbox;
@@ -28,7 +28,7 @@ Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
     fixtureDef.shape = &groundbox;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.3f;
-    fixtureDef.userData = (void*)e_groundbox;
+    fixtureDef.userData = (void*)entity_groundbox;
     body->CreateFixture(&fixtureDef);
     b2CircleShape groundDetector;
     groundDetector.m_radius = PLAYER_SIZE-0.001;
@@ -36,7 +36,7 @@ Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
     b2FixtureDef gDec_fixtureDef;
     gDec_fixtureDef.shape = &groundDetector;
     gDec_fixtureDef.isSensor = true;
-    gDec_fixtureDef.userData = (void*)e_footsensor;
+    gDec_fixtureDef.userData = (void*)player_footsensor;
     body->CreateFixture(&gDec_fixtureDef);
 }
 
@@ -91,6 +91,3 @@ float32 Player::jump(bool world_jump_rule, bool input_jump, float32 current_vspe
     return current_vspeed;
 }
 
-void Player::setJump(bool jump) {
-    can_jump = jump;
-}

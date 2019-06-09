@@ -13,7 +13,6 @@ class Player : public Entity {
 private:
     int jump_time_left;
     int jump_time_max;
-    bool can_jump;
     int max_speed;
     int jump_speed;
 public:
@@ -21,7 +20,6 @@ public:
     void draw(sf::RenderWindow &window) override;
     void update(const Inputs &inputs, WorldRules &worldRules) override;
     float32 jump(bool world_jump_rule, bool input_jump, float32 current_vspeed) override;
-    void setJump(bool);
 };
 
 
