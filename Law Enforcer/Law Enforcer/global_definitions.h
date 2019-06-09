@@ -16,6 +16,18 @@
 #define SCREEN_WIDTH WORLD_WIDTH*PIXELS_BY_METER
 #define SCREEN_HEIGHT WORLD_HEIGHT*PIXELS_BY_METER
 
+typedef enum {
+    p_groundbox,
+    e_groundbox,
+    e_footsensor
+} BoxTypes;
+
+typedef struct {
+    bool jump;
+    bool dash;
+    bool attack;
+} WorldRules ;
+
 sf::Vector2f convert_coords(b2Vec2 coordonnees_b2d, int offset_x=0, int offset_y=0);
 
 #endif //LAW_ENFORCER_GLOBAL_DEFINITIONS_H

@@ -4,15 +4,21 @@
 
 #include <iostream>
 #include "Level.h"
-#include "global_definitions.h"
 
 Level::Level() :
     world({0.0f, -20.0f}),
-    player(world,{-1,-2},50)
+    player(world,{0,0},50),
+    pcl(&player)
 {
-    platforms.emplace_back(Platform(world, {0, 0.5 - WORLD_HEIGHT / 2.0}, {WORLD_WIDTH / 2.0, 0.5}, 1));
-    platforms.emplace_back(Platform(world, {0.5 - WORLD_WIDTH / 2.0, 0}, {0.5, WORLD_HEIGHT / 2.0}, 0));
-    platforms.emplace_back(Platform(world, {WORLD_WIDTH / 2.0 - 0.5, 0}, {0.5, WORLD_HEIGHT / 2.0}, 0));
+    platforms.emplace_back(Platform(world, {0, 0.1 - WORLD_HEIGHT / 2.0}, {WORLD_WIDTH / 2.0, 0.1}, 1));
+    platforms.emplace_back(Platform(world, {0.1 - WORLD_WIDTH / 2.0, 0}, {0.1, WORLD_HEIGHT / 2.0}, 0));
+    platforms.emplace_back(Platform(world, {WORLD_WIDTH / 2.0 - 0.1, 0}, {0.1, WORLD_HEIGHT / 2.0}, 0));
+    platforms.emplace_back(Platform(world, {-WORLD_WIDTH*2.0/10.0,-WORLD_HEIGHT/8.0-0.2}, {WORLD_WIDTH/10.0,0.1}, 0));
+    platforms.emplace_back(Platform(world, {WORLD_WIDTH*2.0/10.0,-WORLD_HEIGHT/8.0-0.2}, {WORLD_WIDTH/10.0,0.1}, 0));
+    world.SetContactListener(&pcl);
+    worldRules.jump = true;
+    worldRules.attack = true;
+    worldRules.dash = true;
 }
 
 void Level::draw(sf::RenderWindow &window) {
@@ -29,5 +35,24 @@ void Level::update(sf::Event event) {
     int32 positionIterations = 2;
     world.Step(timeStep, velocityIterations, positionIterations);
     inputs.update(event);
-    player.update(inputs);
+    update_world_rules();
+    player.update(inputs, worldRules);
+}
+
+void Level::update_world_rules() {
+    if (inputs.get_pressed(modifier))
+    {
+        if (inputs.get_pressed(jump) && inputs.get_this_frame(jump))
+        {
+            worldRules.jump = !worldRules.jump;
+        }
+        else if (inputs.get_pressed(dash) && inputs.get_this_frame(dash))
+        {
+            worldRules.dash = !worldRules.dash;
+        }
+        else if (inputs.get_pressed(attack) && inputs.get_this_frame(attack))
+        {
+            worldRules.attack = !worldRules.attack;
+        }
+    }
 }

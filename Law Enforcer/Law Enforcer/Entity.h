@@ -11,11 +11,13 @@ class Entity : public LevelObject {
 protected:
     int pvmax;
     int pv;
-    b2FixtureDef fixtureDef;
     // TODO sprites (animation compatible)
 public:
     Entity(b2Vec2 coordonnees, int pvmax);
     Entity(pugi::xml_node node);
+    virtual float32 jump(bool world_jump_rule, bool input_jump, float32 current_vspeed) = 0;
+    //virtual void dash(bool world_dash_rule) = 0;
+    //virtual void attack(bool world_attack_rule) = 0;
 };
 
 

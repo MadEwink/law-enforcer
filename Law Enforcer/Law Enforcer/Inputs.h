@@ -16,17 +16,20 @@ typedef enum {
     dash,
     attack,
     pause,
+    modifier,
     NB_ACTION_KEY
 }action_key;
 
 class Inputs {
 private:
     bool is_pressed[NB_ACTION_KEY];
+    bool pressed_this_frame[NB_ACTION_KEY];
     std::map<sf::Keyboard::Key, action_key> key_map;
 public:
     Inputs();
     void update(sf::Event event);
     bool get_pressed(action_key key) const;
+    bool get_this_frame(action_key key) const;
 };
 
 
