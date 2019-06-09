@@ -5,7 +5,6 @@
 #ifndef LAW_ENFORCER_ENTITY_H
 #define LAW_ENFORCER_ENTITY_H
 
-#include "pch.h"
 #include "LevelObject.h"
 
 class Entity : public LevelObject {

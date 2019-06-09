@@ -5,7 +5,6 @@
 #ifndef LAW_ENFORCER_LEVELOBJECT_H
 #define LAW_ENFORCER_LEVELOBJECT_H
 
-#include "pch.h"
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 #include <pugixml.hpp>

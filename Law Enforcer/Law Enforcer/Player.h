@@ -5,7 +5,7 @@
 #ifndef LAW_ENFORCER_PLAYER_H
 #define LAW_ENFORCER_PLAYER_H
 
-#include "pch.h"
+
 #include "Entity.h"
 #include "Inputs.h"
 

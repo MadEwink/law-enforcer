@@ -5,7 +5,6 @@
 #ifndef LAW_ENFORCER_GLOBAL_DEFINITIONS_H
 #define LAW_ENFORCER_GLOBAL_DEFINITIONS_H
 
-#include "pch.h"
 #include <SFML/System.hpp>
 #include <Box2D/Box2D.h>
 

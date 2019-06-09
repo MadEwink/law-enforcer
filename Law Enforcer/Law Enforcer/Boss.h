@@ -5,7 +5,6 @@
 #ifndef LAW_ENFORCER_BOSS_H
 #define LAW_ENFORCER_BOSS_H
 
-#include "pch.h"
 #include "Entity.h"
 
 class Boss : public Entity {
