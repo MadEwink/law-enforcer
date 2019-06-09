@@ -8,8 +8,6 @@
 
 #define PLAYER_SIZE 0.3
 
-Player::Player() : Entity({0,0}, 1) {}
-
 Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
     Entity(coordonnees, pvmax),
     jump_time_max(15),
