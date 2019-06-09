@@ -3,7 +3,6 @@
 //
 
 #include "Platform.h"
-#include "global_definitions.h"
 
 Platform::Platform(b2World &world, b2Vec2 coordonnees, b2Vec2 size, float32 friction) :
     LevelObject(coordonnees),
@@ -31,6 +30,6 @@ void Platform::draw(sf::RenderWindow &window) {
     window.draw(shape);
 }
 
-void Platform::update(const Inputs &inputs) {
+void Platform::update(const Inputs &inputs, WorldRules &worldRules) {
 
 }

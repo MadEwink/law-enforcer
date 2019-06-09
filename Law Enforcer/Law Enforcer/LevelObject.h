@@ -9,6 +9,7 @@
 #include <Box2D/Box2D.h>
 #include <pugixml.hpp>
 #include "Inputs.h"
+#include "global_definitions.h"
 
 class LevelObject {
 protected:
@@ -19,7 +20,7 @@ public:
     LevelObject(b2Vec2 coordonnees);
     LevelObject(pugi::xml_node node);
     virtual void draw(sf::RenderWindow &window)=0;
-    virtual void update(const Inputs &inputs) =0;
+    virtual void update(const Inputs &inputs, WorldRules &worldRules) =0;
 };
 
 

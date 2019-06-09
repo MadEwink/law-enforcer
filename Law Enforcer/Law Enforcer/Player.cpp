@@ -3,8 +3,8 @@
 //
 
 #include "Player.h"
-#include "global_definitions.h"
 #include "Inputs.h"
+#include "Level.h"
 
 #define PLAYER_SIZE 0.3
 
@@ -61,7 +61,7 @@ void Player::draw(sf::RenderWindow &window) {
     window.draw(shape3);
 }
 
-void Player::update(const Inputs &inputs) {
+void Player::update(const Inputs &inputs, WorldRules &worldRules) {
     b2Vec2 speed_applied(body->GetLinearVelocity());
     if (inputs.get_pressed(left)) speed_applied.x = -max_speed;
     else if (inputs.get_pressed(right)) speed_applied.x = max_speed;
@@ -71,7 +71,7 @@ void Player::update(const Inputs &inputs) {
         if (speed_applied.x > 0) speed_applied.x -= 0.7f;
         else if (speed_applied.x < 0) speed_applied.x += 0.7f;
     }
-    speed_applied.y = jump(true, inputs.get_pressed(action_key::jump), speed_applied.y);
+    speed_applied.y = jump(worldRules.jump, inputs.get_pressed(action_key::jump), speed_applied.y);
     body->SetLinearVelocity(speed_applied);
 }
 
@@ -89,9 +89,8 @@ float32 Player::jump(bool world_jump_rule, bool input_jump, float32 current_vspe
         } else {
             jump_time_left = 0;
         }
-        return current_vspeed;
     }
-    return 0;
+    return current_vspeed;
 }
 
 void Player::setJump(bool jump) {

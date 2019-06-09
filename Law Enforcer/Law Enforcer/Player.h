@@ -20,7 +20,7 @@ public:
     Player();
     Player(b2World &world, b2Vec2 coordonnees, int pvmax);
     void draw(sf::RenderWindow &window) override;
-    void update(const Inputs &inputs) override;
+    void update(const Inputs &inputs, WorldRules &worldRules) override;
     float32 jump(bool world_jump_rule, bool input_jump, float32 current_vspeed) override;
     void setJump(bool);
 };
