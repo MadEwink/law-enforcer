@@ -21,6 +21,7 @@ public:
     LevelObject(pugi::xml_node node);
     virtual void draw(sf::RenderWindow &window)=0;
     virtual void update(const Inputs &inputs, WorldRules &worldRules) =0;
+    b2Vec2 get_coordinates() const;
 };
 
 

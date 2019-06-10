@@ -7,8 +7,8 @@
 
 Level::Level() :
     world({0.0f, -20.0f}),
-    player(world,{0,0},50),
-    boss(world, {0,0}, 10, 5,5,5,1),
+    player(world,{-3,1},10),
+    boss(world, {2, 4}, 10, 5, 5, 5, 1, 15, 60, 60),
     lcl(&player, &boss)
 {
     platforms.emplace_back(Platform(world, {0, 0.1 - WORLD_HEIGHT / 2.0}, {WORLD_WIDTH / 2.0, 0.1}, 1));
@@ -33,12 +33,13 @@ void Level::draw(sf::RenderWindow &window) {
 
 void Level::update(sf::Event event) {
     float32 timeStep = 1.0f / 60.0f;
-    int32 velocityIterations = 6;
-    int32 positionIterations = 2;
+    int32 velocityIterations = 100;
+    int32 positionIterations = 50;
     world.Step(timeStep, velocityIterations, positionIterations);
     inputs.update(event);
     update_world_rules();
     player.update(inputs, worldRules);
+    boss.update(inputs, worldRules);
 }
 
 void Level::update_world_rules() {

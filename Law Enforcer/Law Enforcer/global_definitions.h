@@ -20,7 +20,12 @@ typedef enum {
     plateform_groundbox,
     entity_groundbox,
     player_footsensor,
-    boss_footsensor
+    player_hurtbox,
+    player_jump_hitbox,
+    boss_footsensor,
+    boss_hurtbox,
+    boss_contact_hitbox,
+    boss_jump_hitbox
 } BoxTypes;
 
 typedef struct {

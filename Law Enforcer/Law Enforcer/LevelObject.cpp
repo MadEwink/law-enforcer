@@ -10,3 +10,5 @@ LevelObject::LevelObject(b2Vec2 coordonnees):
     coordonnees_sfml(convert_coords(this->coordonnees))
 {
 }
+
+b2Vec2 LevelObject::get_coordinates() const { return body->GetPosition(); }

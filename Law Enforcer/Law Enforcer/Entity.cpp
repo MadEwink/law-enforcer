@@ -7,13 +7,48 @@
 #include "Player.h"
 #include "Entity.h"
 
-Entity::Entity(b2Vec2 coordonnees, int pvmax) :
+Entity::Entity(b2Vec2 coordonnees, int pvmax, int damage_attack, int damage_dash, int damage_jump, int attack_stun,
+               int dash_stun, int jump_stun) :
     LevelObject(coordonnees),
     pvmax(pvmax),
     pv(pvmax),
-    can_jump(false)
+    has_control(true),
+    can_jump(false),
+    is_fall_attacking(false),
+    damage_attack(damage_attack),
+    damage_jump(damage_jump),
+    damage_dash(damage_dash),
+    attack_stun(attack_stun),
+    dash_stun(dash_stun),
+    jump_stun(jump_stun)
 {}
 
 void Entity::setJump(bool jump) {
     can_jump = jump;
+    if (jump) is_fall_attacking = false;
 }
+
+void Entity::take_damage(int damage, int time_without_control, b2Vec2 ejection_speed) {
+    pv -= damage;
+    if (pv <= 0)
+    {
+        pv = 0;
+        printf("The entity %p has died.\n", this);
+    }
+    time_without_control_left = time_without_control;
+    if (time_without_control_left > 0)
+    {
+        has_control = false;
+    }
+    this->ejection_speed = ejection_speed;
+    time_ejection_left = time_without_control / 2;
+}
+
+int Entity::get_damage_attack() const { return damage_attack; }
+int Entity::get_damage_dash() const { return damage_dash; }
+int Entity::get_damage_jump() const { return damage_jump; }
+b2Vec2 Entity::get_speed() const { return body->GetLinearVelocity(); }
+bool Entity::get_is_fall_attacking() const { return is_fall_attacking; }
+int Entity::get_jump_stun() const { return jump_stun; }
+int Entity::get_attack_stun() const { return attack_stun; }
+int Entity::get_dash_stun() const { return dash_stun; }
