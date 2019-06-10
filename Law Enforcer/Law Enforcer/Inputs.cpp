@@ -15,6 +15,7 @@ Inputs::Inputs()
     key_map[sf::Keyboard::Right] = right;
     key_map[sf::Keyboard::Up] = jump;
     key_map[sf::Keyboard::LShift] = modifier;
+    key_map[sf::Keyboard::LControl] = dash;
 }
 
 void Inputs::update(sf::Event event) {

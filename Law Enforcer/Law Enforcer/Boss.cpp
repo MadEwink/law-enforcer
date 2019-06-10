@@ -6,8 +6,8 @@
 #include "Entity.h"
 
 Boss::Boss(b2World &world, b2Vec2 coordonnees, int pvmax, int damage_attack, int damage_dash, int damage_jump,
-           int damage_contact, int attack_stun, int dash_stun, int jump_stun) :
-        Entity(coordonnees, pvmax, damage_attack, damage_dash, damage_jump, attack_stun, dash_stun, jump_stun),
+           int damage_contact, int attack_stun, int dash_stun, int jump_stun, int dash_speed) :
+        Entity(coordonnees, pvmax, damage_attack, damage_dash, damage_jump, attack_stun, dash_stun, jump_stun, dash_speed),
            damage_contact(damage_contact)
 {
     b2BodyDef bodyDef;
@@ -73,6 +73,7 @@ void Boss::update(const Inputs &inputs, WorldRules &worldRules) {
         time_ejection_left --;
         speed_applied = ejection_speed;
     }
+    is_facing_right = (speed_applied.x > 0);
     body->SetLinearVelocity(speed_applied);
 }
 
@@ -80,6 +81,8 @@ float32 Boss::jump(bool world_jump_rule, bool input_jump, float32 current_vspeed
     if (can_jump && world_jump_rule) current_vspeed += 8;
     return current_vspeed;
 }
+
+void Boss::dash(bool world_dash_rule, bool input_dash, b2Vec2 &current_speed) {}
 
 void Boss::random_move(float32 &current_hspeed) {
     if ((int)(body->GetPosition().x - body->GetPosition().y) % 30 > 15)

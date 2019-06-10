@@ -22,6 +22,8 @@ typedef enum {
     player_footsensor,
     player_hurtbox,
     player_jump_hitbox,
+    player_dash_hitbox_left,
+    player_dash_hitbox_right,
     boss_footsensor,
     boss_hurtbox,
     boss_contact_hitbox,
