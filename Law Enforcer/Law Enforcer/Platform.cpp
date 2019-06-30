@@ -2,6 +2,7 @@
 // Created by mad on 01/06/19.
 //
 
+#include "pch.h"
 #include "Platform.h"
 
 Platform::Platform(b2World &world, b2Vec2 coordonnees, b2Vec2 size, float32 friction) :
