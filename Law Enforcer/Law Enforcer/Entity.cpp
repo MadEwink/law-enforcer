@@ -57,3 +57,13 @@ bool Entity::get_is_dashing() const { return is_dashing; }
 int Entity::get_jump_stun() const { return jump_stun; }
 int Entity::get_attack_stun() const { return attack_stun; }
 int Entity::get_dash_stun() const { return dash_stun; }
+
+void Entity::jump(bool world_jump_rule, bool input_jump, float32 &current_vspeed) {
+    if (world_jump_rule)
+    {
+        do_jump(input_jump, current_vspeed);
+    }
+    else {
+        is_fall_attacking = false;
+    }
+}

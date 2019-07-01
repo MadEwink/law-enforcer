@@ -66,7 +66,7 @@ void Boss::update(const Inputs &inputs, WorldRules &worldRules) {
     }
     b2Vec2 speed_applied = body->GetLinearVelocity();
     if (has_control)
-        speed_applied.y = jump(worldRules.jump, true, speed_applied.y);
+        jump(worldRules.jump, true, speed_applied.y);
     else
         time_without_control_left--;
     if (time_ejection_left > 0)
@@ -78,9 +78,8 @@ void Boss::update(const Inputs &inputs, WorldRules &worldRules) {
     body->SetLinearVelocity(speed_applied);
 }
 
-float32 Boss::jump(bool world_jump_rule, bool input_jump, float32 current_vspeed) {
-    if (can_jump && world_jump_rule) current_vspeed += 8;
-    return current_vspeed;
+void Boss::do_jump(bool input_jump, float32 &current_vspeed) {
+    if (can_jump) current_vspeed += 8;
 }
 
 void Boss::dash(bool world_dash_rule, bool input_dash, b2Vec2 &current_speed) {}

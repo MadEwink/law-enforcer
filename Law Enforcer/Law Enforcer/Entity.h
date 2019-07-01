@@ -28,11 +28,11 @@ protected:
     bool is_fall_attacking;
     bool is_dashing;
     bool is_facing_right;
+    virtual void do_jump(bool input_jump, float32 &current_vspeed) = 0;
 public:
     Entity(b2Vec2 coordonnees, int pvmax, int damage_attack, int damage_dash, int damage_jump, int attack_stun,
            int dash_stun, int jump_stun, int dash_speed);
     Entity(pugi::xml_node node);
-    virtual float32 jump(bool world_jump_rule, bool input_jump, float32 current_vspeed) = 0;
     virtual void dash(bool world_dash_rule, bool input_dash, b2Vec2& current_speed) = 0;
     //virtual void dash(bool world_dash_rule) = 0;
     //virtual void attack(bool world_attack_rule) = 0;
@@ -47,6 +47,7 @@ public:
     int get_jump_stun() const;
     int get_attack_stun() const;
     int get_dash_stun() const;
+    void jump(bool world_jump_rule, bool input_jump, float32 &current_vspeed);
 };
 
 
