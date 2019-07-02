@@ -2,6 +2,7 @@
 // Created by mad on 01/06/19.
 //
 
+#include "pch.h"
 #include "Platform.h"
 
 Platform::Platform(b2World &world, b2Vec2 coordonnees, b2Vec2 size, float32 friction) :
@@ -24,7 +25,9 @@ Platform::Platform(b2World &world, b2Vec2 coordonnees, b2Vec2 size, float32 fric
 }
 
 void Platform::draw(sf::RenderWindow &window) {
-    sf::RectangleShape shape({size.x*2.0*PIXELS_BY_METER, size.y*2.0*PIXELS_BY_METER});
+	float size_x = size.x*2.0*PIXELS_BY_METER;
+	float size_y = size.y*2.0*PIXELS_BY_METER;
+    sf::RectangleShape shape({size_x, size_y});
     shape.setFillColor(sf::Color::Blue);
     shape.setPosition(coordonnees_sfml);
     window.draw(shape);

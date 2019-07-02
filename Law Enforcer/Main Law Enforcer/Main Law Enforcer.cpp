@@ -5,8 +5,8 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
-#include "Level.h"
-#include "global_definitions.h"
+#include "../Law Enforcer/Level.h"
+#include "../Law Enforcer/global_definitions.h"
 
 int main()
 {
@@ -15,6 +15,7 @@ int main()
     Level level;
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Level");
     sf::Event event;
+	window.pollEvent(event);
     while(window.isOpen()) {
         current_time = std::chrono::system_clock::now();
         level.update(event);

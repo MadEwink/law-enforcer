@@ -2,6 +2,7 @@
 // Created by mad on 01/06/19.
 //
 
+#include "pch.h"
 #include "global_definitions.h"
 #include "Player.h"
 #include "Inputs.h"
@@ -126,7 +127,7 @@ void Player::update(const Inputs &inputs, WorldRules &worldRules) {
         else if (speed_applied.x < 0) speed_applied.x += 0.7f;
     }
     if (has_control) {
-        speed_applied.y = jump(worldRules.jump, inputs.get_pressed(action_key::jump), speed_applied.y);
+        jump(worldRules.jump, inputs.get_pressed(action_key::jump), speed_applied.y);
         dash(worldRules.dash, inputs.get_pressed(action_key::dash), speed_applied);
     }
     else
@@ -142,26 +143,20 @@ void Player::update(const Inputs &inputs, WorldRules &worldRules) {
     body->SetLinearVelocity(speed_applied);
 }
 
-float32 Player::jump(bool world_jump_rule, bool input_jump, float32 current_vspeed) {
-    if (world_jump_rule) {
-        auto contact = body->GetContactList();
-        if (input_jump) {
-            if (can_jump) {
-                current_vspeed = jump_speed;
-                jump_time_left = jump_time_max;
-            } else if (jump_time_left > 0) {
-                current_vspeed = jump_speed - (jump_time_max - jump_time_left) * (jump_speed / jump_time_max);
-                jump_time_left--;
-            }
-        } else {
-            jump_time_left = 0;
+void Player::do_jump(bool input_jump, float32 &current_vspeed) {
+    auto contact = body->GetContactList();
+    if (input_jump) {
+        if (can_jump) {
+            current_vspeed = jump_speed;
+            jump_time_left = jump_time_max;
+        } else if (jump_time_left > 0) {
+            current_vspeed = jump_speed - (jump_time_max - jump_time_left) * (jump_speed / jump_time_max);
+            jump_time_left--;
         }
-        if (current_vspeed < 0 && !can_jump) is_fall_attacking = true;
-    } else
-    {
-        is_fall_attacking = false;
+    } else {
+        jump_time_left = 0;
     }
-    return current_vspeed;
+    if (current_vspeed < 0 && !can_jump) is_fall_attacking = true;
 }
 
 void Player::dash(bool world_dash_rule, bool input_dash, b2Vec2 &current_speed) {
