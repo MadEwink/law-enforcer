@@ -106,20 +106,14 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-<<<<<<< HEAD
       <AdditionalIncludeDirectories>C:\Users\Quentin\Desktop\Etudes\Cours\Developpement C++\External_library\Box2D\include;C:\Users\Quentin\Desktop\Etudes\Cours\Developpement C++\External_library\SFML\include;C:\Software\vcpkg-master\installed\x86-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-=======
       <AdditionalIncludeDirectories>C:\Users\Quentin\Desktop\Etudes\Cours\Developpement C++\External_library\Box2D\include;C:\Users\Quentin\Desktop\Etudes\Cours\Developpement C++\External_library\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
->>>>>>> a58d0d97a0e387f48e10d5561d743f65f4310667
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\Quentin\Desktop\Etudes\Cours\Developpement C++\External_library\Box2D\lib;C:\Users\Quentin\Desktop\Etudes\Cours\Developpement C++\External_library\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-<<<<<<< HEAD
       <AdditionalDependencies>Box2D.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-main-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-=======
->>>>>>> a58d0d97a0e387f48e10d5561d743f65f4310667
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

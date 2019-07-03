@@ -18,6 +18,8 @@ protected:
     b2Vec2 ejection_speed;
     int time_ejection_left;
     // TODO sprites (animation compatible)
+	sf::Texture sheet;
+	sf::Sprite sprite;
     int damage_attack;
     int damage_dash;
     int damage_jump;
