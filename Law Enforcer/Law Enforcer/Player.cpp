@@ -15,7 +15,8 @@ Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
     jump_time_left(0),
     max_speed(10),
     jump_speed(8),
-    contact_stun(30)
+    contact_stun(30),
+	anim(player_idle)
 {
     b2BodyDef bodyDef;
     b2PolygonShape groundbox;
@@ -73,43 +74,54 @@ Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
     d_h_l_fDef.isSensor = true;
     d_h_l_fDef.userData = (void*)player_dash_hitbox_left;
     body->CreateFixture(&d_h_l_fDef);
+
+	sheet.loadFromFile("../Sprites/Player.png");
+	sprite.setTexture(sheet);
 }
 
 void Player::draw(sf::RenderWindow &window) {
     coordonnees_sfml=convert_coords(body->GetPosition(), -PLAYER_SIZE*PIXELS_BY_METER,-PLAYER_SIZE*PIXELS_BY_METER);
-    sf::RectangleShape shape({PLAYER_SIZE*PIXELS_BY_METER*2.0,PLAYER_SIZE*PIXELS_BY_METER*2.0});
-    shape.setPosition(coordonnees_sfml);
-    shape.setFillColor(sf::Color(145,215,255));
-    sf::RectangleShape shape2({PLAYER_SIZE*PIXELS_BY_METER*2.0, PLAYER_SIZE*PIXELS_BY_METER*2.0*3.0/5.0});
-    sf::Vector2f delta(0,PLAYER_SIZE*PIXELS_BY_METER*2.0/5.0);
-    shape2.setPosition(coordonnees_sfml+delta);
-    shape2.setFillColor(sf::Color(255,102,255));
-    sf::RectangleShape shape3({PLAYER_SIZE*PIXELS_BY_METER*2.0, PLAYER_SIZE*PIXELS_BY_METER*2.0/5.0});
-    sf::Vector2f delta2(0,PLAYER_SIZE*PIXELS_BY_METER*2.0*2.0/5.0);
-    shape3.setPosition(coordonnees_sfml+delta2);
-    shape3.setFillColor(sf::Color::White);
-    sf::CircleShape eye(PLAYER_SIZE*PIXELS_BY_METER/5.0f);
-    sf::Vector2f delta3(0,0);
-    if (is_facing_right) delta3.x += 2*(PLAYER_SIZE*PIXELS_BY_METER-eye.getRadius());
-    eye.setPosition(coordonnees_sfml+delta3);
-    eye.setFillColor(sf::Color::Black);
-    sf::RectangleShape jump_hitbox({2*(PLAYER_SIZE-(PLAYER_SIZE/20.0f))*PIXELS_BY_METER, 2*(PLAYER_SIZE/1.0f)*PIXELS_BY_METER});
-    sf::Vector2f delta4((PLAYER_SIZE/20.0f)*PIXELS_BY_METER, PLAYER_SIZE*PIXELS_BY_METER);
-    jump_hitbox.setPosition(coordonnees_sfml+delta4);
-    jump_hitbox.setFillColor(sf::Color(255,0,0,100));
-    if (is_fall_attacking)
-        window.draw(jump_hitbox);
-    sf::CircleShape dash_hitbox((PLAYER_SIZE+PLAYER_SIZE/3.0f)*PIXELS_BY_METER);
-    sf::Vector2f delta5(2*(-PLAYER_SIZE/3.0f)*PIXELS_BY_METER,(-PLAYER_SIZE/3.0f)*PIXELS_BY_METER);
-    if (is_facing_right) delta5.x += 2*PLAYER_SIZE*PIXELS_BY_METER - dash_hitbox.getRadius();
-    dash_hitbox.setPosition(coordonnees_sfml+delta5);
-    dash_hitbox.setFillColor(sf::Color(255,0,0,100));
-    if (is_dashing)
-        window.draw(dash_hitbox);
+    
+	if (is_fall_attacking) {
+		sf::RectangleShape jump_hitbox({ 2 * (PLAYER_SIZE - (PLAYER_SIZE / 20.0f))*PIXELS_BY_METER, 2 * (PLAYER_SIZE / 1.0f)*PIXELS_BY_METER });
+		sf::Vector2f delta4((PLAYER_SIZE / 20.0f)*PIXELS_BY_METER, PLAYER_SIZE*PIXELS_BY_METER);
+		jump_hitbox.setPosition(coordonnees_sfml + delta4);
+		jump_hitbox.setFillColor(sf::Color(255, 0, 0, 100));
+		window.draw(jump_hitbox);
+	}
+	if (is_dashing) {
+		sf::CircleShape dash_hitbox((PLAYER_SIZE + PLAYER_SIZE / 3.0f)*PIXELS_BY_METER);
+		sf::Vector2f delta5(2 * (-PLAYER_SIZE / 3.0f)*PIXELS_BY_METER, (-PLAYER_SIZE / 3.0f)*PIXELS_BY_METER);
+		if (is_facing_right) delta5.x += 2 * PLAYER_SIZE*PIXELS_BY_METER - dash_hitbox.getRadius();
+		dash_hitbox.setPosition(coordonnees_sfml + delta5);
+		dash_hitbox.setFillColor(sf::Color(255, 0, 0, 100));
+		window.draw(dash_hitbox);
+	}
+
+	sf::RectangleShape shape({PLAYER_SIZE*PIXELS_BY_METER*2.0,PLAYER_SIZE*PIXELS_BY_METER*2.0});
+	shape.setPosition(coordonnees_sfml);
+	shape.setFillColor(sf::Color(145,215,255));
+	sf::RectangleShape shape2({PLAYER_SIZE*PIXELS_BY_METER*2.0, PLAYER_SIZE*PIXELS_BY_METER*2.0*3.0/5.0});
+	sf::Vector2f delta(0,PLAYER_SIZE*PIXELS_BY_METER*2.0/5.0);
+	shape2.setPosition(coordonnees_sfml+delta);
+	shape2.setFillColor(sf::Color(255,102,255));
+	sf::RectangleShape shape3({PLAYER_SIZE*PIXELS_BY_METER*2.0, PLAYER_SIZE*PIXELS_BY_METER*2.0/5.0});
+	sf::Vector2f delta2(0,PLAYER_SIZE*PIXELS_BY_METER*2.0*2.0/5.0);
+	shape3.setPosition(coordonnees_sfml+delta2);
+	shape3.setFillColor(sf::Color::White);
+	sf::CircleShape eye(PLAYER_SIZE*PIXELS_BY_METER/5.0f);
+	sf::Vector2f delta3(0,0);
+	if (is_facing_right) delta3.x += 2*(PLAYER_SIZE*PIXELS_BY_METER-eye.getRadius());
+	eye.setPosition(coordonnees_sfml+delta3);
+	eye.setFillColor(sf::Color::Black);
     window.draw(shape);
     window.draw(shape2);
     window.draw(shape3);
     window.draw(eye);
+
+	sprite.setPosition(coordonnees_sfml);
+	sprite.setTextureRect(sf::IntRect(anim*40, 0, 40, 40));
+	window.draw(sprite);
 }
 
 void Player::update(const Inputs &inputs, WorldRules &worldRules) {
@@ -149,6 +161,7 @@ void Player::do_jump(bool input_jump, float32 &current_vspeed) {
         if (can_jump) {
             current_vspeed = jump_speed;
             jump_time_left = jump_time_max;
+			anim = player_jump;
         } else if (jump_time_left > 0) {
             current_vspeed = jump_speed - (jump_time_max - jump_time_left) * (jump_speed / jump_time_max);
             jump_time_left--;
@@ -156,13 +169,17 @@ void Player::do_jump(bool input_jump, float32 &current_vspeed) {
     } else {
         jump_time_left = 0;
     }
-    if (current_vspeed < 0 && !can_jump) is_fall_attacking = true;
+	if (current_vspeed < 0 && !can_jump) {
+		is_fall_attacking = true;
+		anim = player_fall;
+	}
 }
 
 void Player::dash(bool world_dash_rule, bool input_dash, b2Vec2 &current_speed) {
     if (world_dash_rule && input_dash)
     {
         is_dashing = true;
+		anim = player_dash;
         has_control = false;
         time_without_control_left = 30;
         time_ejection_left = 60;
@@ -172,6 +189,8 @@ void Player::dash(bool world_dash_rule, bool input_dash, b2Vec2 &current_speed) 
         is_dashing = false;
     }
 }
+
+
 
 int Player::get_contact_stun() const { return contact_stun; }
 
