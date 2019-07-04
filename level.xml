@@ -1,4 +1,55 @@
 <Level>
+	<World>
+		<gravity x="0.0f" y="-20.0f"/>
+	</World>
+	<Player>
+		<coordinates x="-3" y="1"/>
+		<pv_max value="10"/>
+		<jump_time_max value="15"/>
+		<jump_speed value="9"/>
+		<max_speed value="10"/>
+		<contact_stun value="30"/>
+		<Hitboxes>
+			<GroundBox>
+				<shape value="Rectangle"/>
+				<size x="0.6" y="0.06"/>
+				<position x="0" y="-0.57"/>
+				<density value="1.0f"/>
+				<friction value="0.3f"/>
+			</GroundBox>
+			<GroundDetector>
+				<shape value="Rectangle"/>
+				<size x="0.57" y="0.03"/>
+				<position x="0" y="-0.6"/>
+			</GroundDetector>
+			<HurtBox>
+				<shape value="Rectangle"/>
+				<size x="0.6" y="0.6"/>
+				<position x="0" y="0"/>
+			</HurtBox>
+			<JumpHitbox>
+				<shape value="Rectangle"/>
+				<size x="0.57" y="0.6"/>
+				<position x="0" y="-0.6"/>
+			</JumpHitbox>
+			<DashHitbox>
+				<shape value="Cirle"/>
+				<size r="0.6"/>
+				<position x="0.6" y="0"/>
+			</DashHitbox>
+			<DashHitbox>
+				<shape value="Cirle"/>
+				<size r="0.6"/>
+				<position x="-0.6" y="0"/>
+			</DashHitbox>
+		</Hitboxes>
+	</Player>
 	<Platforms>
+		<Platform>
+			<position x="0.0" y="0"/>
+			<size x="5" y="1"/>
+			<friction value="0"/>
+			<density value="0"/>
+		</Platform>
 	</Platforms>
 </Level>

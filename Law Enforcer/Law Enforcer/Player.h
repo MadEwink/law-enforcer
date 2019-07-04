@@ -9,6 +9,16 @@
 #include "Entity.h"
 #include "Inputs.h"
 
+enum SpriteState {
+    player_idle,
+    player_walk,
+    player_jump,
+    player_fall,
+    player_dash,
+    player_attack,
+    player_hurt
+};
+
 class Player : public Entity {
 private:
     int jump_time_left;
@@ -25,16 +35,6 @@ public:
 	//void setJump(bool) override;
     void dash(bool world_dash_rule, bool input_dash, b2Vec2& current_speed) override;
     int get_contact_stun() const;
-};
-
-enum SpriteState {
-	player_idle,
-	player_walk,
-	player_jump,
-	player_fall,
-	player_dash,
-	player_attack,
-	player_hurt
 };
 
 #endif //LAW_ENFORCER_PLAYER_H
