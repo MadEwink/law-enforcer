@@ -1,4 +1,1 @@
-﻿  pch.cpp
-  Main Law Enforcer.cpp
-c:\users\quentin\desktop\etudes\cours\developpement c++\law-enforcer\law enforcer\main law enforcer\main law enforcer.cpp(16): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-  Main Law Enforcer.vcxproj -> C:\Users\Quentin\Desktop\Etudes\Cours\Developpement C++\law-enforcer\Law Enforcer\x64\Debug\Main Law Enforcer.exe
+﻿  Main Law Enforcer.vcxproj -> C:\Users\Quentin\Desktop\Etudes\Cours\Developpement C++\law-enforcer\Law Enforcer\x64\Debug\Main Law Enforcer.exe

@@ -25,6 +25,7 @@ private:
 public:
     Level();
     Level(std::string xml_file_path);
+	//void setJump(bool) override;
     void draw(sf::RenderWindow &window);
     void update(sf::Event event);
     void update_world_rules();

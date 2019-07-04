@@ -10,13 +10,16 @@
 #define PLAYER_SIZE 0.3
 
 Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
-        Entity(coordonnees, pvmax, 5, 5, 5, 0, 0, 0, 2*10),
-    jump_time_max(15),
-    jump_time_left(0),
-    max_speed(10),
-    jump_speed(8),
-    contact_stun(30),
-	anim(player_idle)
+	Entity(coordonnees, pvmax, 5, 5, 5, 0, 0, 0, 2 * 10),
+	jump_time_max(15),
+	jump_time_left(0),
+	max_speed(10),
+	jump_speed(8),
+	contact_stun(30),
+	anim(player_idle),
+	sprite_size(40),
+	walk_time(0),
+	change_walk_time(20)
 {
     b2BodyDef bodyDef;
     b2PolygonShape groundbox;
@@ -118,9 +121,16 @@ void Player::draw(sf::RenderWindow &window) {
     window.draw(shape2);
     window.draw(shape3);
     window.draw(eye);
+	
 
+
+	if (is_facing_right) { sprite.setScale(sf::Vector2f(1, 1)); }
+	else { 
+		sprite.setScale(sf::Vector2f(-1, 1));
+		coordonnees_sfml.x += sprite_size*0.8f;
+	}
 	sprite.setPosition(coordonnees_sfml);
-	sprite.setTextureRect(sf::IntRect(anim*40, 0, 40, 40));
+	sprite.setTextureRect(sf::IntRect(anim*sprite_size, 0, sprite_size, sprite_size));
 	window.draw(sprite);
 }
 
@@ -129,6 +139,7 @@ void Player::update(const Inputs &inputs, WorldRules &worldRules) {
     if (time_without_control_left <= 0)
     {
         has_control = true;
+		anim = player_idle;
     }
     if (has_control && inputs.get_pressed(left)) speed_applied.x = -max_speed;
     else if (has_control && inputs.get_pressed(right)) speed_applied.x = max_speed;
@@ -151,7 +162,19 @@ void Player::update(const Inputs &inputs, WorldRules &worldRules) {
         time_ejection_left--;
         speed_applied = ejection_speed;
     }
-    if (speed_applied.x != 0) is_facing_right = (speed_applied.x > 0);
+	if (speed_applied.x != 0) {
+		is_facing_right = (speed_applied.x > 0);
+		//walk animation
+		if (anim < 2) { // anim = idle or walk
+			walk_time++;
+			if (walk_time > change_walk_time) {
+				walk_time -= change_walk_time;
+				if (anim == player_idle) { anim = player_walk; }
+				else { anim = player_idle; }
+			}
+		}
+		else { walk_time = change_walk_time; }
+	}
     body->SetLinearVelocity(speed_applied);
 }
 
@@ -175,6 +198,11 @@ void Player::do_jump(bool input_jump, float32 &current_vspeed) {
 	}
 }
 
+void Player::setJump(bool jump) {
+	Entity::setJump(jump);
+	if (jump) anim = player_idle;
+}
+
 void Player::dash(bool world_dash_rule, bool input_dash, b2Vec2 &current_speed) {
     if (world_dash_rule && input_dash)
     {
@@ -187,10 +215,14 @@ void Player::dash(bool world_dash_rule, bool input_dash, b2Vec2 &current_speed) 
         if (!is_facing_right) ejection_speed *= -1;
     } else{
         is_dashing = false;
+		if (anim == player_dash) anim = player_idle;
     }
 }
 
-
+void Player::take_damage(int damage, int time_without_control, b2Vec2 ejection_speed) {
+	Entity::take_damage(damage, time_without_control, ejection_speed);
+	anim = player_hurt;
+}
 
 int Player::get_contact_stun() const { return contact_stun; }
 

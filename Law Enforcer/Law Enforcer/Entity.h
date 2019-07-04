@@ -38,8 +38,8 @@ public:
     virtual void dash(bool world_dash_rule, bool input_dash, b2Vec2& current_speed) = 0;
     //virtual void dash(bool world_dash_rule) = 0;
     //virtual void attack(bool world_attack_rule) = 0;
-    void setJump(bool);
-    void take_damage(int damage, int time_without_control, b2Vec2 ejection_speed);
+    virtual void setJump(bool);
+    virtual void take_damage(int damage, int time_without_control, b2Vec2 ejection_speed);
     int get_damage_attack() const;
     int get_damage_dash() const;
     int get_damage_jump() const;
