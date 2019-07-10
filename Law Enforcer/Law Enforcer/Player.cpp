@@ -100,29 +100,12 @@ void Player::draw(sf::RenderWindow &window) {
 		dash_hitbox.setFillColor(sf::Color(255, 0, 0, 100));
 		window.draw(dash_hitbox);
 	}
-
+	//to visualize hitbox
 	sf::RectangleShape shape({PLAYER_SIZE*PIXELS_BY_METER*2.0,PLAYER_SIZE*PIXELS_BY_METER*2.0});
 	shape.setPosition(coordonnees_sfml);
 	shape.setFillColor(sf::Color(145,215,255));
-	sf::RectangleShape shape2({PLAYER_SIZE*PIXELS_BY_METER*2.0, PLAYER_SIZE*PIXELS_BY_METER*2.0*3.0/5.0});
-	sf::Vector2f delta(0,PLAYER_SIZE*PIXELS_BY_METER*2.0/5.0);
-	shape2.setPosition(coordonnees_sfml+delta);
-	shape2.setFillColor(sf::Color(255,102,255));
-	sf::RectangleShape shape3({PLAYER_SIZE*PIXELS_BY_METER*2.0, PLAYER_SIZE*PIXELS_BY_METER*2.0/5.0});
-	sf::Vector2f delta2(0,PLAYER_SIZE*PIXELS_BY_METER*2.0*2.0/5.0);
-	shape3.setPosition(coordonnees_sfml+delta2);
-	shape3.setFillColor(sf::Color::White);
-	sf::CircleShape eye(PLAYER_SIZE*PIXELS_BY_METER/5.0f);
-	sf::Vector2f delta3(0,0);
-	if (is_facing_right) delta3.x += 2*(PLAYER_SIZE*PIXELS_BY_METER-eye.getRadius());
-	eye.setPosition(coordonnees_sfml+delta3);
-	eye.setFillColor(sf::Color::Black);
-    window.draw(shape);
-    window.draw(shape2);
-    window.draw(shape3);
-    window.draw(eye);
+	window.draw(shape);
 	
-
 
 	if (is_facing_right) { sprite.setScale(sf::Vector2f(1, 1)); }
 	else { 
@@ -139,7 +122,6 @@ void Player::update(const Inputs &inputs, WorldRules &worldRules) {
     if (time_without_control_left <= 0)
     {
         has_control = true;
-		anim = player_idle;
     }
     if (has_control && inputs.get_pressed(left)) speed_applied.x = -max_speed;
     else if (has_control && inputs.get_pressed(right)) speed_applied.x = max_speed;
@@ -165,7 +147,7 @@ void Player::update(const Inputs &inputs, WorldRules &worldRules) {
 	if (speed_applied.x != 0) {
 		is_facing_right = (speed_applied.x > 0);
 		//walk animation
-		if (anim < 2) { // anim = idle or walk
+		if (anim <= player_walk || (anim == player_hurt && has_control == true)) { // anim = idle or walk or after being hurt
 			walk_time++;
 			if (walk_time > change_walk_time) {
 				walk_time -= change_walk_time;
@@ -200,7 +182,7 @@ void Player::do_jump(bool input_jump, float32 &current_vspeed) {
 
 void Player::setJump(bool jump) {
 	Entity::setJump(jump);
-	if (jump) anim = player_idle;
+	if (jump && anim!=player_jump) anim = player_idle;
 }
 
 void Player::dash(bool world_dash_rule, bool input_dash, b2Vec2 &current_speed) {
@@ -221,7 +203,7 @@ void Player::dash(bool world_dash_rule, bool input_dash, b2Vec2 &current_speed) 
 
 void Player::take_damage(int damage, int time_without_control, b2Vec2 ejection_speed) {
 	Entity::take_damage(damage, time_without_control, ejection_speed);
-	anim = player_hurt;
+	if (damage != 0) { anim = player_hurt; }
 }
 
 int Player::get_contact_stun() const { return contact_stun; }
