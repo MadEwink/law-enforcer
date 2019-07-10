@@ -101,6 +101,7 @@ void Player::draw(sf::RenderWindow &window) {
 		window.draw(dash_hitbox);
 	}
 
+	/*
 	sf::RectangleShape shape({PLAYER_SIZE*PIXELS_BY_METER*2.0,PLAYER_SIZE*PIXELS_BY_METER*2.0});
 	shape.setPosition(coordonnees_sfml);
 	shape.setFillColor(sf::Color(145,215,255));
@@ -121,6 +122,7 @@ void Player::draw(sf::RenderWindow &window) {
     window.draw(shape2);
     window.draw(shape3);
     window.draw(eye);
+    */
 	
 
 
@@ -141,6 +143,8 @@ void Player::update(const Inputs &inputs, WorldRules &worldRules) {
         has_control = true;
 		anim = player_idle;
     }
+    if (inputs.get_pressed(right)) is_facing_right = true;
+    else if (inputs.get_pressed(left)) is_facing_right = false;
     if (has_control && inputs.get_pressed(left)) speed_applied.x = -max_speed;
     else if (has_control && inputs.get_pressed(right)) speed_applied.x = max_speed;
     else
@@ -163,7 +167,6 @@ void Player::update(const Inputs &inputs, WorldRules &worldRules) {
         speed_applied = ejection_speed;
     }
 	if (speed_applied.x != 0) {
-		is_facing_right = (speed_applied.x > 0);
 		//walk animation
 		if (anim < 2) { // anim = idle or walk
 			walk_time++;
