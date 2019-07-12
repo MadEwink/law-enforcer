@@ -7,9 +7,11 @@
 #include "Entity.h"
 
 Boss::Boss(b2World &world, b2Vec2 coordonnees, int pvmax, int damage_attack, int damage_dash, int damage_jump,
-           int damage_contact, int attack_stun, int dash_stun, int jump_stun, int dash_speed) :
-        Entity(coordonnees, pvmax, damage_attack, damage_dash, damage_jump, attack_stun, dash_stun, jump_stun, dash_speed),
-           damage_contact(damage_contact)
+	int damage_contact, int attack_stun, int dash_stun, int jump_stun, int dash_speed) :
+	Entity(coordonnees, pvmax, damage_attack, damage_dash, damage_jump, attack_stun, dash_stun, jump_stun, dash_speed),
+	damage_contact(damage_contact),
+	landing_time(45),
+	landing_time_left(0)
 {
     b2BodyDef bodyDef;
     b2PolygonShape groundbox;
@@ -49,6 +51,15 @@ Boss::Boss(b2World &world, b2Vec2 coordonnees, int pvmax, int damage_attack, int
     hb_fDef.isSensor = true;
     hb_fDef.userData = (void*)boss_hurtbox;
     body->CreateFixture(&hb_fDef);
+	//jump attack hitbox
+	b2CircleShape jump_attack_shape;
+	jump_attack_shape.m_p.Set(0, -BOSS_SIZE);
+	jump_attack_shape.m_radius = 2 * BOSS_SIZE;
+	b2FixtureDef jump_attack_hitbox;
+	jump_attack_hitbox.shape = &jump_attack_shape;
+	jump_attack_hitbox.isSensor = true;
+	jump_attack_hitbox.userData = (void*) boss_jump_hitbox;
+	body->CreateFixture(&jump_attack_hitbox);
 
 	sheet.loadFromFile("../Sprites/The_Strong.png");
 }
@@ -56,6 +67,14 @@ Boss::Boss(b2World &world, b2Vec2 coordonnees, int pvmax, int damage_attack, int
 void Boss::draw(sf::RenderWindow &window) {
     coordonnees_sfml=convert_coords(body->GetPosition(), -BOSS_SIZE*PIXELS_BY_METER,-BOSS_SIZE*PIXELS_BY_METER);
 	
+	if (is_fall_attacking) {
+		sf::CircleShape jump_hitbox((2 * BOSS_SIZE)*PIXELS_BY_METER);
+		sf::Vector2f delta1(-BOSS_SIZE*PIXELS_BY_METER , 0); // (0, 1) due to position + (-1, -1) due to sfml being in the corner and the size being 2
+		jump_hitbox.setPosition(coordonnees_sfml + delta1);
+		jump_hitbox.setFillColor(sf::Color(255, 0, 0, 100));
+		window.draw(jump_hitbox);
+	}
+
     //Keep to visualize hitbox on Debug
 	sf::RectangleShape shape({BOSS_SIZE*PIXELS_BY_METER*2.0,BOSS_SIZE*PIXELS_BY_METER*2.0});
     shape.setPosition(coordonnees_sfml);
@@ -87,7 +106,25 @@ void Boss::update(const Inputs &inputs, WorldRules &worldRules) {
 }
 
 void Boss::do_jump(bool input_jump, float32 &current_vspeed) {
-    if (can_jump) current_vspeed += 8;
+	if (!is_fall_attacking) {
+		if (can_jump) current_vspeed += 4;
+	}
+	else { //touches the ground and attacks
+		if (landing_time_left == 0) {
+			is_fall_attacking = false;
+		}
+		else { landing_time_left--; }
+	}
+}
+
+void Boss::setJump(bool jump) {
+	if (!can_jump && jump) {//upon landing
+		is_fall_attacking = true;
+		landing_time_left = landing_time;
+	}
+	//if (jump && anim != player_jump) anim = player_idle;
+	can_jump = jump;
+	
 }
 
 void Boss::dash(bool world_dash_rule, bool input_dash, b2Vec2 &current_speed) {}

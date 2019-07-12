@@ -13,7 +13,7 @@ Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
 	Entity(coordonnees, pvmax, 5, 5, 5, 0, 0, 0, 2 * 10),
 	jump_time_max(15),
 	jump_time_left(0),
-	max_speed(10),
+	max_speed(5),
 	jump_speed(8),
 	contact_stun(30),
 	anim(player_idle),

@@ -92,16 +92,22 @@ void LevelContactListener::BeginContact(b2Contact *contact) {
     else if (fPlayerHurtSensor != nullptr)
     {
         if (other != nullptr && (other->GetUserData() == (void*)boss_contact_hitbox || other->GetUserData() == (void*)entity_groundbox))
-        {
-			if (!player->get_is_dashing() && !player->get_is_fall_attacking()) {
-				// boss hit player by contact
-				printf("Boss attacks Player\n");
+        {// boss hit player by contact
+			if (!player->get_is_dashing() && !player->get_is_fall_attacking()) {//player is not attacking
+				printf("Boss attacks Player by contact\n");
 				b2Vec2 eject_speed;
 				eject_speed = (player->get_coordinates() - boss->get_coordinates());
 				eject_speed *= 5;
 				player->take_damage(boss->get_damage_contact(), player->get_contact_stun(), eject_speed);
 			}
         }
+		else if (other != nullptr && (boss->get_is_fall_attacking() && other->GetUserData() == (void*)boss_jump_hitbox)) {
+			printf("Boss attacks Player by Jump \n");
+			b2Vec2 eject_speed;
+			eject_speed = (player->get_coordinates() - boss->get_coordinates());
+			eject_speed *= 5;
+			player->take_damage(boss->get_damage_contact(), player->get_contact_stun(), eject_speed);
+		}
     }
 }
 
