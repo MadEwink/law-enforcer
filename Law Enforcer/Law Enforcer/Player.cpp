@@ -123,8 +123,16 @@ void Player::update(const Inputs &inputs, WorldRules &worldRules) {
     {
         has_control = true;
     }
-    if (has_control && inputs.get_pressed(left)) speed_applied.x = -max_speed;
-    else if (has_control && inputs.get_pressed(right)) speed_applied.x = max_speed;
+    if (has_control && inputs.get_pressed(left))
+    {
+        speed_applied.x = -max_speed;
+        is_facing_right = false;
+    }
+    else if (has_control && inputs.get_pressed(right))
+    {
+        speed_applied.x = max_speed;
+        is_facing_right = true;
+    }
     else
     {
         if (abs(speed_applied.x) < 0.7f) speed_applied.x = 0;
@@ -145,7 +153,6 @@ void Player::update(const Inputs &inputs, WorldRules &worldRules) {
         speed_applied = ejection_speed;
     }
 	if (speed_applied.x != 0) {
-		is_facing_right = (speed_applied.x > 0);
 		//walk animation
 		if (anim <= player_walk || (anim == player_hurt && has_control == true)) { // anim = idle or walk or after being hurt
 			walk_time++;
