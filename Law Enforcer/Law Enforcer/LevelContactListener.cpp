@@ -75,7 +75,7 @@ void LevelContactListener::BeginContact(b2Contact *contact) {
     if (fPlayerJumpHitbox != nullptr && player->get_is_fall_attacking() && other != nullptr && other->GetUserData() == (void*)boss_hurtbox)
     {
         // player hit boss by jumping
-        printf("Player attacks Boss\n");
+        printf("Player attacks Boss by Jumping\n");
         b2Vec2 player_rebounce_speed(0, player->get_coordinates().y - boss->get_coordinates().y);
         player_rebounce_speed *= 5;
         player->take_damage(0, boss->get_jump_stun()/2, player_rebounce_speed);
@@ -83,7 +83,7 @@ void LevelContactListener::BeginContact(b2Contact *contact) {
     } else if (fPlayerDashHitboxLeft != nullptr && player->get_is_dashing() && other != nullptr && other->GetUserData() == (void*)boss_hurtbox)
     {
         //player hit boss by dashing
-        printf("Player attacks Boss\n");
+        printf("Player attacks Boss by Dashing\n");
         b2Vec2 player_rebounce_speed(player->get_coordinates().x - boss->get_coordinates().x, 0);
         player_rebounce_speed *= 5;
         player->take_damage(0, boss->get_dash_stun()/2, player_rebounce_speed);
@@ -91,7 +91,7 @@ void LevelContactListener::BeginContact(b2Contact *contact) {
     }
     else if (fPlayerHurtSensor != nullptr)
     {
-        if (other != nullptr && (other->GetUserData() == (void*)boss_contact_hitbox || other->GetUserData() == (void*)entity_groundbox))
+        if (other != nullptr && (other->GetUserData() == (void*)boss_contact_hitbox))
         {// boss hit player by contact
 			if (!player->get_is_dashing() && !player->get_is_fall_attacking()) {//player is not attacking
 				printf("Boss attacks Player by contact\n");
@@ -106,7 +106,7 @@ void LevelContactListener::BeginContact(b2Contact *contact) {
 			b2Vec2 eject_speed;
 			eject_speed = (player->get_coordinates() - boss->get_coordinates());
 			eject_speed *= 5;
-			player->take_damage(boss->get_damage_contact(), player->get_contact_stun(), eject_speed);
+			player->take_damage(boss->get_damage_jump(), player->get_jump_stun(), eject_speed);
 		}
     }
 }
