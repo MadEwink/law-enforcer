@@ -28,7 +28,8 @@ typedef enum {
     boss_hurtbox,
     boss_contact_hitbox,
     boss_jump_hitbox,
-	boss_dash_hitbox
+	boss_dash_hitbox_right,
+	boss_dash_hitbox_left
 } BoxTypes;
 
 typedef struct {

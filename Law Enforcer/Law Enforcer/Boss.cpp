@@ -11,7 +11,9 @@ Boss::Boss(b2World &world, b2Vec2 coordonnees, int pvmax, int damage_attack, int
 	Entity(coordonnees, pvmax, damage_attack, damage_dash, damage_jump, attack_stun, dash_stun, jump_stun, dash_speed),
 	damage_contact(damage_contact),
 	landing_time(45),
-	landing_time_left(0)
+	landing_time_left(0),
+	dashing_time(120),
+	dashing_time_left(0)
 {
     b2BodyDef bodyDef;
     b2PolygonShape groundbox;
@@ -60,6 +62,23 @@ Boss::Boss(b2World &world, b2Vec2 coordonnees, int pvmax, int damage_attack, int
 	jump_attack_hitbox.isSensor = true;
 	jump_attack_hitbox.userData = (void*) boss_jump_hitbox;
 	body->CreateFixture(&jump_attack_hitbox);
+	//dash attack hitbox
+	b2CircleShape dash_shape_left;
+	dash_shape_left.m_p = { -BOSS_SIZE, 0 };
+	dash_shape_left.m_radius = { BOSS_SIZE * (4.0f / 3.0f) };
+	b2FixtureDef dash_hitbox_left;
+	dash_hitbox_left.shape = &dash_shape_left;
+	dash_hitbox_left.isSensor = true;
+	dash_hitbox_left.userData = (void*)boss_dash_hitbox_left;
+	body->CreateFixture(&dash_hitbox_left);
+	b2CircleShape dash_shape_right;
+	dash_shape_right.m_p = { BOSS_SIZE, 0 };
+	dash_shape_right.m_radius = { BOSS_SIZE * (4.0f / 3.0f) };
+	b2FixtureDef dash_hitbox_right;
+	dash_hitbox_right.shape = &dash_shape_right;
+	dash_hitbox_right.isSensor = true;
+	dash_hitbox_right.userData = (void*)boss_dash_hitbox_right;
+	body->CreateFixture(&dash_hitbox_right);
 
 	sheet.loadFromFile("../Sprites/The_Strong.png");
 }
@@ -73,6 +92,15 @@ void Boss::draw(sf::RenderWindow &window) {
 		jump_hitbox.setPosition(coordonnees_sfml + delta1);
 		jump_hitbox.setFillColor(sf::Color(255, 0, 0, 100));
 		window.draw(jump_hitbox);
+	}
+
+	if (is_dashing) {
+		sf::CircleShape dash_hitbox((BOSS_SIZE * (4.0f / 3.0f))*PIXELS_BY_METER);
+		sf::Vector2f delta2(BOSS_SIZE * PIXELS_BY_METER * 2/3, -BOSS_SIZE * PIXELS_BY_METER /3); // (1, 0) due to position + (-1/3, -1/3) due to sfml being in the corner and the size being 4/3
+		if (!is_facing_right) { delta2 = sf::Vector2f(-BOSS_SIZE * PIXELS_BY_METER * 4 / 3, -BOSS_SIZE * PIXELS_BY_METER / 3); }// (-1, 0)+ (-1/3, -1/3)
+		dash_hitbox.setPosition(coordonnees_sfml + delta2);
+		dash_hitbox.setFillColor(sf::Color(255, 0, 0, 100));
+		window.draw(dash_hitbox);
 	}
 
     //Keep to visualize hitbox on Debug
@@ -92,8 +120,13 @@ void Boss::update(const Inputs &inputs, WorldRules &worldRules) {
         has_control = true;
     }
     b2Vec2 speed_applied = body->GetLinearVelocity();
-    if (has_control)
-        jump(worldRules.jump, true, speed_applied.y);
+	if (has_control)
+		if (is_fall_attacking) {
+			jump(worldRules.jump, true, speed_applied.y);
+		}
+		else {
+			dash(worldRules.dash, true, speed_applied);
+		}
     else
         time_without_control_left--;
     if (time_ejection_left > 0)
@@ -127,7 +160,34 @@ void Boss::setJump(bool jump) {
 	
 }
 
-void Boss::dash(bool world_dash_rule, bool input_dash, b2Vec2 &current_speed) {}
+void Boss::dash(bool world_dash_rule, bool input_dash, b2Vec2 &current_speed) {
+	if (world_dash_rule /*&& input_dash*/)
+	{
+		if (!is_dashing) {
+			is_dashing = true;
+			dashing_time_left = dashing_time;
+			//anim = player_dash;
+			has_control = false;
+			time_without_control_left = 30;
+			time_ejection_left = 60;
+			ejection_speed = { (float32)dash_speed, 0 };
+			if (!is_facing_right) ejection_speed *= -1;
+		}
+		else {
+			if (dashing_time_left == 0) {
+				is_dashing = false;
+				ejection_speed = { 0, 0 };
+			}
+			else {
+				dashing_time_left--;
+			}
+		}
+	}
+	else {
+		is_dashing = false;
+		//if (anim == player_dash) anim = player_idle;
+	}
+}
 
 void Boss::random_move(float32 &current_hspeed) {
     if ((int)(body->GetPosition().x - body->GetPosition().y) % 30 > 15)

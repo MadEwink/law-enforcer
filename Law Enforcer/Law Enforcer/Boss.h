@@ -14,6 +14,8 @@ protected:
     int damage_contact;
 	int landing_time;
 	int landing_time_left;
+	int dashing_time;
+	int dashing_time_left;
     void do_jump(bool input_jump, float32 &current_vspeed) override;
 public:
     Boss(b2World &world, b2Vec2 coordonnees, int pvmax, int damage_attack, int damage_dash, int damage_jump,

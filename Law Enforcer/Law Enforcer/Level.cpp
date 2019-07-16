@@ -9,7 +9,7 @@
 Level::Level() :
     world({0.0f, -20.0f}),
     player(world,{-3,1},10),
-    boss(world, {2, 4}, 10, 5, 5, 5, 1, 15, 60, 60, 5),
+    boss(world, {2, 4}, 10, 5, 5, 5, 1, 15, 60, 60, 10),
     lcl(&player, &boss)
 {
     platforms.emplace_back(Platform(world, {0, 0.1 - WORLD_HEIGHT / 2.0}, {WORLD_WIDTH / 2.0, 0.1}, 1));
