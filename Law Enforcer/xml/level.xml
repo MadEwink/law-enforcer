@@ -20,47 +20,99 @@
 		<Hitboxes>
 			<GroundBox>
 				<shape value="Rectangle"/>
-				<size x="0.6" y="0.06"/>
-				<position x="0" y="-0.57"/>
+				<size x="0.3" y="0.3"/>
+				<position x="0" y="0"/>
 				<density value="1.0f"/>
 				<friction value="0.3f"/>
+				<userData value="1"/>
 			</GroundBox>
 			<GroundDetector>
 				<shape value="Rectangle"/>
-				<size x="0.57" y="0.03"/>
-				<position x="0" y="-0.6"/>
+				<size x="0.27" y="0.03"/>
+				<position x="0" y="-0.3"/>
+				<isSensor value="true"/>
+				<userData value="2"/>
 			</GroundDetector>
 			<HurtBox>
 				<shape value="Rectangle"/>
-				<size x="0.6" y="0.6"/>
+				<size x="0.3" y="0.3"/>
 				<position x="0" y="0"/>
+				<isSensor value="true"/>
+				<userData value="3"/>
 			</HurtBox>
 			<JumpHitbox>
 				<shape value="Rectangle"/>
-				<size x="0.57" y="0.6"/>
-				<position x="0" y="-0.6"/>
+				<size x="0.27" y="0.3"/>
+				<position x="0" y="-0.3"/>
+				<isSensor value="true"/>
+				<userData value="4"/>
 			</JumpHitbox>
 			<DashHitbox>
 				<shape value="Cirle"/>
 				<size r="0.6"/>
 				<position x="0.6" y="0"/>
+				<isSensor value="true"/>
+				<userData value="5"/>
 			</DashHitbox>
 			<DashHitbox>
 				<shape value="Cirle"/>
 				<size r="0.6"/>
 				<position x="-0.6" y="0"/>
+				<isSensor value="true"/>
+				<userData value="5"/>
 			</DashHitbox>
 		</Hitboxes>
-		<Sprite value="Player.png">
+		<Sprite value="Player.png"/>
 	</Player>
 	<Platforms>
 		<Platform>
-			<coordinates x="0.0" y="0"/>
-			<size x="5" y="1"/>
+			<coordinates x="0.0" y="-4.9"/>
 			<Hitbox>
+				<size x="6.5" y="0.1"/>
+				<shape value="Rectangle"/>
+				<friction value="1"/>
+				<density value="0"/>
+				<userData value="0"/>
+			</Hitbox>
+		</Platform>
+		<Platform>
+			<coordinates x="-6.49" y="0"/>
+			<Hitbox>
+				<size x="0.1" y="5"/>
 				<shape value="Rectangle"/>
 				<friction value="0"/>
 				<density value="0"/>
+				<userData value="0"/>
+			</Hitbox>
+		</Platform>
+		<Platform>
+			<coordinates x="6.49" y="0"/>
+			<Hitbox>
+				<size x="0.1" y="5"/>
+				<shape value="Rectangle"/>
+				<friction value="0"/>
+				<density value="0"/>
+				<userData value="0"/>
+			</Hitbox>
+		</Platform>
+		<Platform>
+			<coordinates x="-2.6" y="-0.5"/>
+			<Hitbox>
+				<size x="1.3" y="0.1"/>
+				<shape value="Rectangle"/>
+				<friction value="0"/>
+				<density value="0"/>
+				<userData value="0"/>
+			</Hitbox>
+		</Platform>
+		<Platform>
+			<coordinates x="2.6" y="-0.5"/>
+			<Hitbox>
+				<size x="1.3" y="0.1"/>
+				<shape value="Rectangle"/>
+				<friction value="0"/>
+				<density value="0"/>
+				<userData value="0"/>
 			</Hitbox>
 		</Platform>
 	</Platforms>

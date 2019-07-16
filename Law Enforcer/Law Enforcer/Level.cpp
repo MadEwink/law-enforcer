@@ -10,11 +10,12 @@ Level::Level(pugi::xml_node node) :
     world({node.child("World").child("gravity").attribute("x").as_float(0),
            node.child("World").child("gravity").attribute("y").as_float(0)}),
     player(world, node.child("Player")),
-    boss(world, node.child("Player")),
+    boss(world, node.child("Boss")),
     lcl(&player, &boss)
 {
     for (auto i : node.child("Platforms").children()) {
         platforms.emplace_back(Platform(world, i));
+        platforms.emplace_back(Platform(world, {0, 0.1 - WORLD_HEIGHT / 2.0}, {WORLD_WIDTH / 2.0, 0.1}, 1));
     }
     world.SetContactListener(&lcl);
     worldRules.jump = node.child("World").child("rules").attribute("jump").as_bool(true);

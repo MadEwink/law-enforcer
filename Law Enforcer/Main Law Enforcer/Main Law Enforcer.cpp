@@ -12,7 +12,10 @@ int main()
 {
     std::cout << "Hello World!\n";
     std::chrono::time_point<std::chrono::system_clock> current_time;
-    Level level;
+    pugi::xml_document doc;
+    pugi::xml_parse_result result = doc.load_file("../xml/level.xml");
+    if (!result) return EXIT_FAILURE;
+    Level level(doc.child("Level"));
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Level");
     sf::Event event;
 	window.pollEvent(event);

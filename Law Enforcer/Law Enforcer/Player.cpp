@@ -21,7 +21,7 @@ Player::Player(b2World &world, pugi::xml_node node) :
     walk_time(0),
     change_walk_time(20)
 {
-    sheet.loadFromFile(strcat("../Sprites/", node.child("Sprite").attribute("value").as_string()));
+    sheet.loadFromFile("../Sprites/Player.png");
     sprite.setTexture(sheet);
 }
 
@@ -83,7 +83,7 @@ Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
     b2FixtureDef d_h_r_fDef;
     d_h_r_fDef.shape = &dash_hitbox_right;
     d_h_r_fDef.isSensor = true;
-    d_h_r_fDef.userData = (void*)player_dash_hitbox_right;
+    d_h_r_fDef.userData = (void*)player_dash_hitbox;
     body->CreateFixture(&d_h_r_fDef);
     b2CircleShape dash_hitbox_left;
     dash_hitbox_left.m_p = {-PLAYER_SIZE, 0};
@@ -91,7 +91,7 @@ Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
     b2FixtureDef d_h_l_fDef;
     d_h_l_fDef.shape = &dash_hitbox_left;
     d_h_l_fDef.isSensor = true;
-    d_h_l_fDef.userData = (void*)player_dash_hitbox_left;
+    d_h_l_fDef.userData = (void*)player_dash_hitbox;
     body->CreateFixture(&d_h_l_fDef);
 
 	sheet.loadFromFile("../Sprites/Player.png");

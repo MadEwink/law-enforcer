@@ -7,10 +7,14 @@
 
 Platform::Platform(b2World &world, pugi::xml_node node) :
     LevelObject(node),
-    size({node.child("size").attribute("x").as_float(0),
-          node.child("size").attribute("y").as_float(0)})
+    size({node.child("Hitbox").child("size").attribute("x").as_float(0),
+          node.child("Hitbox").child("size").attribute("y").as_float(0)})
 {
+    b2BodyDef bodyDef;
+    bodyDef.position.Set(this->coordonnees.x, this->coordonnees.y);
+    body = world.CreateBody(&bodyDef);
     loadFixture(body, node.child("Hitbox"));
+    coordonnees_sfml = convert_coords(coordonnees, -size.x*PIXELS_BY_METER, -size.y*PIXELS_BY_METER);
 }
 
 Platform::Platform(b2World &world, b2Vec2 coordonnees, b2Vec2 size, float32 friction) :

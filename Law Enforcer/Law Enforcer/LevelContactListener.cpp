@@ -49,11 +49,11 @@ void LevelContactListener::BeginContact(b2Contact *contact) {
     {
         fPlayerJumpHitbox = contact->GetFixtureB();
         other = contact->GetFixtureA();
-    } else if (contact->GetFixtureA()->GetUserData() == (void*)player_dash_hitbox_left)
+    } else if (contact->GetFixtureA()->GetUserData() == (void*)player_dash_hitbox)
     {
         fPlayerDashHitboxLeft = contact->GetFixtureA();
         other = contact->GetFixtureB();
-    } else if (contact->GetFixtureB()->GetUserData() == (void*)player_dash_hitbox_left)
+    } else if (contact->GetFixtureB()->GetUserData() == (void*)player_dash_hitbox)
     {
         fPlayerDashHitboxLeft = contact->GetFixtureB();
         other = contact->GetFixtureA();

@@ -26,6 +26,7 @@ void loadFixture(b2Body* body, pugi::xml_node node)
                      node.child("position").attribute("y").as_float(0)};
         shape.m_radius = {node.child("size").attribute("r").as_float(0)};
         fixtureDef.shape = &shape;
+        body->CreateFixture(&fixtureDef);
     } else {
         b2PolygonShape shape;
         shape.SetAsBox(node.child("size").attribute("x").as_float(0),
@@ -33,7 +34,7 @@ void loadFixture(b2Body* body, pugi::xml_node node)
                        {node.child("position").attribute("x").as_float(0),
                         node.child("position").attribute("y").as_float(0)},0);
         fixtureDef.shape = &shape;
+        body->CreateFixture(&fixtureDef);
     }
-    body->CreateFixture(&fixtureDef);
 }
 
