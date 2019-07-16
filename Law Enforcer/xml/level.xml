@@ -1,6 +1,7 @@
 <Level>
 	<World>
 		<gravity x="0.0f" y="-20.0f"/>
+		<rules jump="true" dash="true" attack="true"/>
 	</World>
 	<Player>
 		<coordinates x="-3" y="1"/>

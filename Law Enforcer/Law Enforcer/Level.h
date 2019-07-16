@@ -24,7 +24,7 @@ private:
     WorldRules worldRules;
 public:
     Level();
-    Level(std::string xml_file_path);
+    Level(pugi::xml_node node);
 	//void setJump(bool) override;
     void draw(sf::RenderWindow &window);
     void update(sf::Event event);

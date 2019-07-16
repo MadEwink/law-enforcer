@@ -18,6 +18,7 @@ protected:
 public:
     Boss(b2World &world, b2Vec2 coordonnees, int pvmax, int damage_attack, int damage_dash, int damage_jump,
          int damage_contact, int attack_stun, int dash_stun, int jump_stun, int dash_speed);
+    Boss(b2World &world, pugi::xml_node node);
     void draw(sf::RenderWindow &window) override;
     void update(const Inputs &inputs, WorldRules &worldRules) override;
 	void setJump(bool) override;

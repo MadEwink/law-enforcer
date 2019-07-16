@@ -6,6 +6,22 @@
 #include <iostream>
 #include "Level.h"
 
+Level::Level(pugi::xml_node node) :
+    world({node.child("World").child("gravity").attribute("x").as_float(0),
+           node.child("World").child("gravity").attribute("y").as_float(0)}),
+    player(world, node.child("Player")),
+    boss(world, node.child("Player")),
+    lcl(&player, &boss)
+{
+    for (auto i : node.child("Platforms").children()) {
+        platforms.emplace_back(Platform(world, i));
+    }
+    world.SetContactListener(&lcl);
+    worldRules.jump = node.child("World").child("rules").attribute("jump").as_bool(true);
+    worldRules.dash = node.child("World").child("rules").attribute("dash").as_bool(true);
+    worldRules.attack = node.child("World").child("rules").attribute("attack").as_bool(true);
+}
+
 Level::Level() :
     world({0.0f, -20.0f}),
     player(world,{-3,1},10),
