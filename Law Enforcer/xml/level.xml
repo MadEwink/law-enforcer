@@ -55,10 +55,13 @@
 	</Player>
 	<Platforms>
 		<Platform>
-			<position x="0.0" y="0"/>
+			<coordinates x="0.0" y="0"/>
 			<size x="5" y="1"/>
-			<friction value="0"/>
-			<density value="0"/>
+			<Hitbox>
+				<shape value="Rectangle"/>
+				<friction value="0"/>
+				<density value="0"/>
+			</Hitbox>
 		</Platform>
 	</Platforms>
 </Level>

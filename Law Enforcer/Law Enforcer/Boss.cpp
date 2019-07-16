@@ -6,6 +6,15 @@
 #include "Boss.h"
 #include "Entity.h"
 
+Boss::Boss(b2World &world, pugi::xml_node node) :
+    Entity(world, node),
+    damage_contact(node.child("damage_contact").attribute("value").as_int(0)),
+    landing_time(45),
+    landing_time_left(0)
+{
+    sheet.loadFromFile("../Sprites/The_Strong.png");
+}
+
 Boss::Boss(b2World &world, b2Vec2 coordonnees, int pvmax, int damage_attack, int damage_dash, int damage_jump,
 	int damage_contact, int attack_stun, int dash_stun, int jump_stun, int dash_speed) :
 	Entity(coordonnees, pvmax, damage_attack, damage_dash, damage_jump, attack_stun, dash_stun, jump_stun, dash_speed),

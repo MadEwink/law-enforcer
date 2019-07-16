@@ -5,6 +5,14 @@
 #include "pch.h"
 #include "Platform.h"
 
+Platform::Platform(b2World &world, pugi::xml_node node) :
+    LevelObject(node),
+    size({node.child("size").attribute("x").as_float(0),
+          node.child("size").attribute("y").as_float(0)})
+{
+    loadFixture(body, node.child("Hitbox"));
+}
+
 Platform::Platform(b2World &world, b2Vec2 coordonnees, b2Vec2 size, float32 friction) :
     LevelObject(coordonnees),
     size(size)

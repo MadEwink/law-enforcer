@@ -39,5 +39,6 @@ typedef struct {
 } WorldRules ;
 
 sf::Vector2f convert_coords(b2Vec2 coordonnees_b2d, int offset_x=0, int offset_y=0);
+void loadFixture(b2Body* body, pugi::xml_node node);
 
 #endif //LAW_ENFORCER_GLOBAL_DEFINITIONS_H
