@@ -121,12 +121,12 @@ void Boss::update(const Inputs &inputs, WorldRules &worldRules) {
     }
     b2Vec2 speed_applied = body->GetLinearVelocity();
 	if (has_control)
-		if (is_fall_attacking) {
+		//if (is_fall_attacking) {
 			jump(worldRules.jump, true, speed_applied.y);
-		}
+		/*}
 		else {
 			dash(worldRules.dash, true, speed_applied);
-		}
+		}*/
     else
         time_without_control_left--;
     if (time_ejection_left > 0)

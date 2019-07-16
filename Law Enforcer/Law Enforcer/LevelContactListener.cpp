@@ -91,7 +91,7 @@ void LevelContactListener::BeginContact(b2Contact *contact) {
     }
     else if (fPlayerHurtSensor != nullptr)
     {
-        if (other != nullptr && (other->GetUserData() == (void*)boss_contact_hitbox))
+        if (other != nullptr && (other->GetUserData() == (void*)boss_contact_hitbox || other->GetUserData() == (void*)entity_groundbox))
         {// boss hit player by contact
 			if (!player->get_is_dashing() && !player->get_is_fall_attacking()) {//player is not attacking
 				printf("Boss attacks Player by contact\n");
