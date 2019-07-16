@@ -32,12 +32,11 @@ protected:
     bool is_dashing;
     bool is_facing_right;
     virtual void do_jump(bool input_jump, float32 &current_vspeed) = 0;
+    virtual void do_dash(bool input_dash, b2Vec2 &current_speed) = 0;
 public:
     Entity(b2Vec2 coordonnees, int pvmax, int damage_attack, int damage_dash, int damage_jump, int attack_stun,
            int dash_stun, int jump_stun, int dash_speed, int jump_speed);
     Entity(b2World &world, pugi::xml_node node);
-    virtual void dash(bool world_dash_rule, bool input_dash, b2Vec2& current_speed) = 0;
-    //virtual void dash(bool world_dash_rule) = 0;
     //virtual void attack(bool world_attack_rule) = 0;
     virtual void setJump(bool);
     virtual void take_damage(int damage, int time_without_control, b2Vec2 ejection_speed);
@@ -52,6 +51,7 @@ public:
     int get_attack_stun() const;
     int get_dash_stun() const;
     void jump(bool world_jump_rule, bool input_jump, float32 &current_vspeed);
+    void dash(bool world_jump_rule, bool input_jump, b2Vec2 &current_speed);
 };
 
 

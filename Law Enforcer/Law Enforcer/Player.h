@@ -30,6 +30,7 @@ private:
 	int walk_time;
 	int change_walk_time;
     void do_jump(bool input_jump, float32 &current_vspeed) override;
+    void do_dash(bool input_dash, b2Vec2& current_speed) override;
 public:
     Player(b2World &world, b2Vec2 coordonnees, int pvmax);
     Player(b2World &world, pugi::xml_node node);
@@ -37,7 +38,6 @@ public:
     void update(const Inputs &inputs, WorldRules &worldRules) override;
 	void setJump(bool) override;
 	void take_damage(int damage, int time_without_control, b2Vec2 ejection_speed) override;
-    void dash(bool world_dash_rule, bool input_dash, b2Vec2& current_speed) override;
     int get_contact_stun() const;
 };
 

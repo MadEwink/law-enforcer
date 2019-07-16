@@ -208,8 +208,8 @@ void Player::setJump(bool jump) {
 	if (jump && anim!=player_jump) anim = player_idle;
 }
 
-void Player::dash(bool world_dash_rule, bool input_dash, b2Vec2 &current_speed) {
-    if (world_dash_rule && input_dash)
+void Player::do_dash(bool input_dash, b2Vec2 &current_speed) {
+    if (input_dash)
     {
         is_dashing = true;
 		anim = player_dash;

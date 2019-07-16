@@ -97,3 +97,11 @@ void Entity::jump(bool world_jump_rule, bool input_jump, float32 &current_vspeed
         is_fall_attacking = false;
     }
 }
+void Entity::dash(bool world_jump_rule, bool input_dash, b2Vec2 &current_speed) {
+    if (world_jump_rule)
+    {
+        do_dash(input_dash, current_speed);
+    } else {
+        is_dashing = false;
+    }
+}

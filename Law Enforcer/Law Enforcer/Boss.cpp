@@ -171,33 +171,26 @@ void Boss::setJump(bool jump) {
 	
 }
 
-void Boss::dash(bool world_dash_rule, bool input_dash, b2Vec2 &current_speed) {
-	if (world_dash_rule /*&& input_dash*/)
-	{
-		if (!is_dashing) {
-			is_dashing = true;
-			dashing_time_left = dashing_time;
-			//anim = player_dash;
-			has_control = false;
-			time_without_control_left = 30;
-			time_ejection_left = 60;
-			ejection_speed = { (float32)dash_speed, 0 };
-			if (!is_facing_right) ejection_speed *= -1;
-		}
-		else {
-			if (dashing_time_left == 0) {
-				is_dashing = false;
-				ejection_speed = { 0, 0 };
-			}
-			else {
-				dashing_time_left--;
-			}
-		}
+void Boss::do_dash(bool input_dash, b2Vec2 &current_speed) {
+	if (!is_dashing) {
+		is_dashing = true;
+		dashing_time_left = dashing_time;
+		//anim = player_dash;
+		has_control = false;
+		time_without_control_left = 30;
+		time_ejection_left = 60;
+		ejection_speed = { (float32)dash_speed, 0 };
+		if (!is_facing_right) ejection_speed *= -1;
 	}
-	else {
-		is_dashing = false;
-		//if (anim == player_dash) anim = player_idle;
-	}
+    else {
+        if (dashing_time_left == 0) {
+            is_dashing = false;
+            ejection_speed = { 0, 0 };
+        }
+        else {
+            dashing_time_left--;
+        }
+    }
 }
 
 void Boss::random_move(float32 &current_hspeed) {
