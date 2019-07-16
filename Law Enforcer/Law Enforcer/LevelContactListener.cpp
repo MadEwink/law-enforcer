@@ -102,11 +102,28 @@ void LevelContactListener::BeginContact(b2Contact *contact) {
 			}
         }
 		else if (other != nullptr && (boss->get_is_fall_attacking() && other->GetUserData() == (void*)boss_jump_hitbox)) {
+			//boss hit player with landing hitbox
 			printf("Boss attacks Player by Jump \n");
 			b2Vec2 eject_speed;
 			eject_speed = (player->get_coordinates() - boss->get_coordinates());
 			eject_speed *= 5;
 			player->take_damage(boss->get_damage_jump(), player->get_jump_stun(), eject_speed);
+		}
+		else if (other != nullptr && (boss->get_is_dashing() && other->GetUserData() == (void*)boss_dash_hitbox) && boss->get_is_facing_right()) {
+			//boss hit player by dashing right
+			printf("Boss attacks Player by Dash right \n");
+			b2Vec2 eject_speed;
+			eject_speed = (player->get_coordinates() - boss->get_coordinates());
+			eject_speed *= 5;
+			player->take_damage(boss->get_damage_contact(), player->get_contact_stun(), eject_speed);
+		}
+		else if (other != nullptr && (boss->get_is_dashing() && other->GetUserData() == (void*)boss_dash_hitbox) && !boss->get_is_facing_right()) {
+			//boss hit player by dashing left
+			printf("Boss attacks Player by Dash left \n");
+			b2Vec2 eject_speed;
+			eject_speed = (player->get_coordinates() - boss->get_coordinates());
+			eject_speed *= 5;
+			player->take_damage(boss->get_damage_contact(), player->get_contact_stun(), eject_speed);
 		}
     }
 }

@@ -47,6 +47,7 @@ public:
     b2Vec2 get_speed() const;
     bool get_is_fall_attacking() const;
     bool get_is_dashing() const;
+	bool get_is_facing_right() const;
     int get_jump_stun() const;
     int get_attack_stun() const;
     int get_dash_stun() const;
