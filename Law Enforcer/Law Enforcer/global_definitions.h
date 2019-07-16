@@ -24,11 +24,13 @@ typedef enum {
     player_hurtbox,
     player_jump_hitbox,
     player_dash_hitbox,
+    player_attack_hitbox,
     boss_footsensor,
     boss_hurtbox,
     boss_contact_hitbox,
     boss_jump_hitbox,
-	boss_dash_hitbox
+	boss_dash_hitbox,
+	boss_attack_hitbox
 } BoxTypes;
 
 typedef struct {

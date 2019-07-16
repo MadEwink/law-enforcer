@@ -14,7 +14,6 @@ Player::Player(b2World &world, pugi::xml_node node) :
     jump_time_max(node.child("jump_time_max").attribute("value").as_int(0)),
     jump_time_left(node.child("jump_time_left").attribute("value").as_int(0)),
     max_speed(node.child("max_speed").attribute("value").as_int(0)),
-    jump_speed(node.child("jump_speed").attribute("value").as_int(0)),
     contact_stun(node.child("contact_stun").attribute("value").as_int(0)),
     anim(player_idle),
     sprite_size(40),
@@ -26,11 +25,10 @@ Player::Player(b2World &world, pugi::xml_node node) :
 }
 
 Player::Player(b2World &world, b2Vec2 coordonnees, int pvmax) :
-	Entity(coordonnees, pvmax, 5, 5, 5, 0, 0, 0, 2 * 10),
+	Entity(coordonnees, pvmax, 5, 5, 5, 0, 0, 0, 2 * 10, 8),
 	jump_time_max(15),
 	jump_time_left(0),
 	max_speed(5),
-	jump_speed(8),
 	contact_stun(30),
 	anim(player_idle),
 	sprite_size(40),

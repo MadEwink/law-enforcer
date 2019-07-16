@@ -23,6 +23,7 @@ Entity::Entity(b2World &world, pugi::xml_node node) :
     attack_stun(node.child("attack_stun").attribute("value").as_int(0)),
     dash_stun(node.child("dash_stun").attribute("value").as_int(0)),
     jump_stun(node.child("jump_stun").attribute("value").as_int(0)),
+    jump_speed(node.child("jump_speed").attribute("value").as_int(0)),
     dash_speed(node.child("dash_speed").attribute("value").as_int(0))
 {
     b2BodyDef bodyDef;
@@ -36,7 +37,7 @@ Entity::Entity(b2World &world, pugi::xml_node node) :
 }
 
 Entity::Entity(b2Vec2 coordonnees, int pvmax, int damage_attack, int damage_dash, int damage_jump, int attack_stun,
-               int dash_stun, int jump_stun, int dash_speed) :
+               int dash_stun, int jump_stun, int dash_speed, int jump_speed) :
     LevelObject(coordonnees),
     pvmax(pvmax),
     pv(pvmax),
@@ -51,6 +52,7 @@ Entity::Entity(b2Vec2 coordonnees, int pvmax, int damage_attack, int damage_dash
     attack_stun(attack_stun),
     dash_stun(dash_stun),
     jump_stun(jump_stun),
+    jump_speed(jump_speed),
     dash_speed(dash_speed)
 {}
 

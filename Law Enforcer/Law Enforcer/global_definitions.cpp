@@ -19,7 +19,8 @@ void loadFixture(b2Body* body, pugi::xml_node node)
     fixtureDef.isSensor = node.child("isSensor").attribute("value").as_bool(false);
     fixtureDef.restitution = node.child("restitution").attribute("value").as_float(0);
     fixtureDef.userData = (void*)node.child("userData").attribute("value").as_int(0);
-    if (node.child("shape").attribute("value").as_string("Rectangle") == "Circle")
+
+    if (strcmp(node.child("shape").attribute("value").as_string("Rectangle"), "Circle")==0)
     {
         b2CircleShape shape;
         shape.m_p = {node.child("position").attribute("x").as_float(0),

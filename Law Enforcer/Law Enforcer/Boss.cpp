@@ -17,7 +17,7 @@ Boss::Boss(b2World &world, pugi::xml_node node) :
 
 Boss::Boss(b2World &world, b2Vec2 coordonnees, int pvmax, int damage_attack, int damage_dash, int damage_jump,
 	int damage_contact, int attack_stun, int dash_stun, int jump_stun, int dash_speed) :
-	Entity(coordonnees, pvmax, damage_attack, damage_dash, damage_jump, attack_stun, dash_stun, jump_stun, dash_speed),
+	Entity(coordonnees, pvmax, damage_attack, damage_dash, damage_jump, attack_stun, dash_stun, jump_stun, dash_speed,4),
 	damage_contact(damage_contact),
 	landing_time(45),
 	landing_time_left(0)
@@ -70,7 +70,7 @@ Boss::Boss(b2World &world, b2Vec2 coordonnees, int pvmax, int damage_attack, int
 	jump_attack_hitbox.userData = (void*) boss_jump_hitbox;
 	body->CreateFixture(&jump_attack_hitbox);
 
-	sheet.loadFromFile("../Sprites/The_Strong.png");
+	sheet.loadFromFile("../Sprites/The_Strong_2.png");
 }
 
 void Boss::draw(sf::RenderWindow &window) {
@@ -118,7 +118,7 @@ void Boss::update(const Inputs &inputs, WorldRules &worldRules) {
 
 void Boss::do_jump(bool input_jump, float32 &current_vspeed) {
 	if (!is_fall_attacking) {
-		if (can_jump) current_vspeed += 4;
+		if (can_jump) current_vspeed += jump_speed;
 	}
 	else { //touches the ground and attacks
 		if (landing_time_left == 0) {

@@ -24,7 +24,6 @@ private:
     int jump_time_left;
     int jump_time_max;
     int max_speed;
-    int jump_speed;
     int contact_stun;
 	enum SpriteState anim;
 	int sprite_size;

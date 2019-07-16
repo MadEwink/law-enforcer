@@ -1,10 +1,10 @@
 <Level>
 	<World>
-		<gravity x="0.0f" y="-20.0f"/>
-		<rules jump="true" dash="true" attack="true"/>
+		<gravity x="0f" y="-20.0f"/>
+		<rules jump="false" dash="true" attack="true"/>
 	</World>
 	<Player>
-		<coordinates x="-3" y="1"/>
+		<coordinates x="-2" y="-3.6"/>
 		<pv_max value="10"/>
 		<jump_time_max value="15"/>
 		<jump_speed value="9"/>
@@ -20,23 +20,23 @@
 		<Hitboxes>
 			<GroundBox>
 				<shape value="Rectangle"/>
-				<size x="0.3" y="0.3"/>
-				<position x="0" y="0"/>
+				<size x="0.24" y="0.14"/>
+				<position x="-0.06" y="-0.04"/>
 				<density value="1.0f"/>
 				<friction value="0.3f"/>
 				<userData value="1"/>
 			</GroundBox>
 			<GroundDetector>
 				<shape value="Rectangle"/>
-				<size x="0.27" y="0.03"/>
-				<position x="0" y="-0.3"/>
+				<size x="0.23" y="0.03"/>
+				<position x="-0.06" y="-0.15"/>
 				<isSensor value="true"/>
 				<userData value="2"/>
 			</GroundDetector>
 			<HurtBox>
 				<shape value="Rectangle"/>
-				<size x="0.3" y="0.3"/>
-				<position x="0" y="0"/>
+				<size x="0.19" y="0.14"/>
+				<position x="-0.12" y="-0.04"/>
 				<isSensor value="true"/>
 				<userData value="3"/>
 			</HurtBox>
@@ -48,14 +48,14 @@
 				<userData value="4"/>
 			</JumpHitbox>
 			<DashHitbox>
-				<shape value="Cirle"/>
+				<shape value="Circle"/>
 				<size r="0.6"/>
 				<position x="0.6" y="0"/>
 				<isSensor value="true"/>
 				<userData value="5"/>
 			</DashHitbox>
 			<DashHitbox>
-				<shape value="Cirle"/>
+				<shape value="Circle"/>
 				<size r="0.6"/>
 				<position x="-0.6" y="0"/>
 				<isSensor value="true"/>
@@ -64,7 +64,101 @@
 		</Hitboxes>
 		<Sprite value="Player.png"/>
 	</Player>
+	<Boss>
+		<coordinates x="3" y="1"/>
+		<pv_max value="20"/>
+		<jump_time_max value="15"/>
+		<jump_speed value="4"/>
+		<max_speed value="10"/>
+		<contact_stun value="30"/>
+		<damage_attack value="5"/>
+		<damage_jump value="5"/>
+		<damage_dash value="5"/>
+		<attack_stun value="0"/>
+		<jump_stun value="0"/>
+		<dash_stun value="0"/>
+		<dash_speed value="20"/>
+		<Hitboxes>
+			<GroundBox>
+				<shape value="Rectangle"/>
+				<size x="0.23" y="0.51"/>
+				<position x="-0.06" y="-0.01"/>
+				<density value="1.0f"/>
+				<friction value="0.3f"/>
+				<userData value="1"/>
+			</GroundBox>
+			<GroundDetector>
+				<shape value="Rectangle"/>
+				<size x="0.23" y="0.03"/>
+				<position x="0" y="-0.51"/>
+				<isSensor value="true"/>
+				<userData value="7"/>
+			</GroundDetector>
+			<HurtBox>
+				<shape value="Rectangle"/>
+				<size x="0.23" y="0.51"/>
+				<position x="-0.06" y="-0.01"/>
+				<isSensor value="true"/>
+				<userData value="8"/>
+			</HurtBox>
+			<ContactHitbox>
+				<shape value="Rectangle"/>
+				<size x="0.23" y="0.51"/>
+				<position x="-0.06" y="-0.01"/>
+				<isSensor value="true"/>
+				<userData value="9"/>
+			</ContactHitbox>
+			<ContactHitbox>
+				<shape value="Circle"/>
+				<size r="0.36"/>
+				<position x="-0.40" y="0.3"/>
+				<density value="1.0f"/>
+				<friction value="0f"/>
+				<userData value="9"/>
+			</ContactHitbox>
+			<ContactHitbox>
+				<shape value="Circle"/>
+				<size r="0.36"/>
+				<position x="0.50" y="0.3"/>
+				<density value="1.0f"/>
+				<friction value="0f"/>
+				<userData value="9"/>
+			</ContactHitbox>
+			<JumpHitbox>
+				<shape value="Rectangle"/>
+				<size x="0.27" y="0.3"/>
+				<position x="0" y="-0.3"/>
+				<isSensor value="true"/>
+				<userData value="10"/>
+			</JumpHitbox>
+			<DashHitbox>
+				<shape value="Circle"/>
+				<size r="0.6"/>
+				<position x="0.6" y="0"/>
+				<isSensor value="true"/>
+				<userData value="11"/>
+			</DashHitbox>
+			<DashHitbox>
+				<shape value="Circle"/>
+				<size r="0.6"/>
+				<position x="-0.6" y="0"/>
+				<isSensor value="true"/>
+				<userData value="11"/>
+			</DashHitbox>
+		</Hitboxes>
+		<Sprite value="The_Strong.png"/>
+	</Boss>
 	<Platforms>
+		<Platform>
+			<coordinates x="0.0" y="4.9"/>
+			<Hitbox>
+				<size x="6.5" y="0.1"/>
+				<shape value="Rectangle"/>
+				<friction value="1"/>
+				<density value="0"/>
+				<userData value="0"/>
+			</Hitbox>
+		</Platform>
 		<Platform>
 			<coordinates x="0.0" y="-4.9"/>
 			<Hitbox>
@@ -96,7 +190,7 @@
 			</Hitbox>
 		</Platform>
 		<Platform>
-			<coordinates x="-2.6" y="-0.5"/>
+			<coordinates x="-2.6" y="-0.8"/>
 			<Hitbox>
 				<size x="1.3" y="0.1"/>
 				<shape value="Rectangle"/>
@@ -106,7 +200,17 @@
 			</Hitbox>
 		</Platform>
 		<Platform>
-			<coordinates x="2.6" y="-0.5"/>
+			<coordinates x="2.6" y="-0.8"/>
+			<Hitbox>
+				<size x="1.3" y="0.1"/>
+				<shape value="Rectangle"/>
+				<friction value="0"/>
+				<density value="0"/>
+				<userData value="0"/>
+			</Hitbox>
+		</Platform>
+		<Platform>
+			<coordinates x="0" y="-4.4"/>
 			<Hitbox>
 				<size x="1.3" y="0.1"/>
 				<shape value="Rectangle"/>

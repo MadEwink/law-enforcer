@@ -15,6 +15,7 @@ protected:
     bool can_jump;
     bool has_control;
     int time_without_control_left;
+    int jump_speed;
     b2Vec2 ejection_speed;
     int time_ejection_left;
     // TODO sprites (animation compatible)
@@ -33,7 +34,7 @@ protected:
     virtual void do_jump(bool input_jump, float32 &current_vspeed) = 0;
 public:
     Entity(b2Vec2 coordonnees, int pvmax, int damage_attack, int damage_dash, int damage_jump, int attack_stun,
-           int dash_stun, int jump_stun, int dash_speed);
+           int dash_stun, int jump_stun, int dash_speed, int jump_speed);
     Entity(b2World &world, pugi::xml_node node);
     virtual void dash(bool world_dash_rule, bool input_dash, b2Vec2& current_speed) = 0;
     //virtual void dash(bool world_dash_rule) = 0;
