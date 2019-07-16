@@ -85,10 +85,12 @@ void Boss::draw(sf::RenderWindow &window) {
 	}
 
     //Keep to visualize hitbox on Debug
+    /*
 	sf::RectangleShape shape({BOSS_SIZE*PIXELS_BY_METER*2.0,BOSS_SIZE*PIXELS_BY_METER*2.0});
     shape.setPosition(coordonnees_sfml);
     shape.setFillColor(sf::Color(145,215,255));
 	window.draw(shape);
+     */
 
 	sprite.setPosition(coordonnees_sfml);
 	sprite.setTexture(sheet);

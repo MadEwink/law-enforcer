@@ -37,8 +37,8 @@ void Inputs::update(sf::Event event) {
     if (event.type == sf::Event::KeyReleased) {
         for (const auto &i : key_map)
         {
-            if (i.first == event.key.code)
-            //if (!sf::Keyboard::isKeyPressed(i.first))
+            //if (i.first == event.key.code)
+            if (!sf::Keyboard::isKeyPressed(i.first))
             {
                 is_pressed[i.second] = false;
             }

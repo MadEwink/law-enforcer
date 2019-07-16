@@ -117,10 +117,12 @@ void Player::draw(sf::RenderWindow &window) {
 		window.draw(dash_hitbox);
 	}
 	//to visualize hitbox
+	/*
 	sf::RectangleShape shape({PLAYER_SIZE*PIXELS_BY_METER*2.0,PLAYER_SIZE*PIXELS_BY_METER*2.0});
 	shape.setPosition(coordonnees_sfml);
 	shape.setFillColor(sf::Color(145,215,255));
 	window.draw(shape);
+	 */
 	
 
 	if (is_facing_right) { sprite.setScale(sf::Vector2f(1, 1)); }
