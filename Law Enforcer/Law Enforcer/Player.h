@@ -33,6 +33,7 @@ private:
     void do_jump(bool input_jump, float32 &current_vspeed) override;
 public:
     Player(b2World &world, b2Vec2 coordonnees, int pvmax);
+    Player(b2World &world, pugi::xml_node node);
     void draw(sf::RenderWindow &window) override;
     void update(const Inputs &inputs, WorldRules &worldRules) override;
 	void setJump(bool) override;

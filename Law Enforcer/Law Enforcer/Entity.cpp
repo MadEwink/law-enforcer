@@ -8,6 +8,59 @@
 #include "Player.h"
 #include "Entity.h"
 
+void loadFixture(b2Body* body, pugi::xml_node node)
+{
+    b2FixtureDef fixtureDef;
+    fixtureDef.density = node.child("density").attribute("value").as_float(0);
+    fixtureDef.friction = node.child("friction").attribute("value").as_float(0);
+    fixtureDef.isSensor = node.child("isSensor").attribute("value").as_bool(false);
+    fixtureDef.restitution = node.child("restitution").attribute("value").as_float(0);
+    fixtureDef.userData = (void*)node.child("userData").attribute("value").as_int(0);
+    if (node.child("shape").attribute("value").as_string("Rectangle") == "Circle")
+    {
+        b2CircleShape shape;
+        shape.m_p = {node.child("position").attribute("x").as_float(0),
+                     node.child("position").attribute("y").as_float(0)};
+        shape.m_radius = {node.child("size").attribute("r").as_float(0)};
+        fixtureDef.shape = &shape;
+    } else {
+        b2PolygonShape shape;
+        shape.SetAsBox(node.child("size").attribute("x").as_float(0),
+                node.child("size").attribute("y").as_float(0),
+                {node.child("position").attribute("x").as_float(0),
+                 node.child("position").attribute("y").as_float(0)},0);
+        fixtureDef.shape = &shape;
+    }
+    body->CreateFixture(&fixtureDef);
+}
+
+Entity::Entity(b2World &world, pugi::xml_node node) :
+    LevelObject(node),
+    pvmax(node.child("pvmax").attribute("value").as_int(0)),
+    pv(pvmax),
+    has_control(true),
+    can_jump(false),
+    is_fall_attacking(false),
+    is_dashing(false),
+    is_facing_right(true),
+    damage_attack(node.child("damage_attack").attribute("value").as_int(0)),
+    damage_jump(node.child("damage_jump").attribute("value").as_int(0)),
+    damage_dash(node.child("damage_dash").attribute("value").as_int(0)),
+    attack_stun(node.child("attack_stun").attribute("value").as_int(0)),
+    dash_stun(node.child("dash_stun").attribute("value").as_int(0)),
+    jump_stun(node.child("jump_stun").attribute("value").as_int(0)),
+    dash_speed(node.child("dash_speed").attribute("value").as_int(0))
+{
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_dynamicBody;
+    bodyDef.fixedRotation = true;
+    bodyDef.position.Set(this->coordonnees.x, this->coordonnees.y);
+    body = world.CreateBody(&bodyDef);
+    for (auto i : node.child("Hitboxes").children()) {
+        loadFixture(body, i);
+    }
+}
+
 Entity::Entity(b2Vec2 coordonnees, int pvmax, int damage_attack, int damage_dash, int damage_jump, int attack_stun,
                int dash_stun, int jump_stun, int dash_speed) :
     LevelObject(coordonnees),

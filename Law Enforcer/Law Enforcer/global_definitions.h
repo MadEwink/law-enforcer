@@ -7,6 +7,7 @@
 
 #include <SFML/System.hpp>
 #include <Box2D/Box2D.h>
+#include <pugixml.hpp>
 
 #define PIXELS_BY_METER 60.0
 

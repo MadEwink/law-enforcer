@@ -9,6 +9,13 @@
 		<jump_speed value="9"/>
 		<max_speed value="10"/>
 		<contact_stun value="30"/>
+		<damage_attack value="5"/>
+		<damage_jump value="5"/>
+		<damage_dash value="5"/>
+		<attack_stun value="0"/>
+		<jump_stun value="0"/>
+		<dash_stun value="0"/>
+		<dash_speed value="20"/>
 		<Hitboxes>
 			<GroundBox>
 				<shape value="Rectangle"/>
@@ -43,6 +50,7 @@
 				<position x="-0.6" y="0"/>
 			</DashHitbox>
 		</Hitboxes>
+		<Sprite value="Player.png">
 	</Player>
 	<Platforms>
 		<Platform>

@@ -28,9 +28,11 @@ if(SFML_FOUND)
     target_link_libraries(Law_Enforcer sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
 endif()
 
-find_path(PugiXML_INCLUDE_DIR pugixml.hpp)
+find_path(PugiXML_INCLUDE_DIR pugixml.hpp REQUIRED)
 include_directories(${PugiXML_INCLUDE_DIR})
 target_link_directories(Law_Enforcer PRIVATE ${PugiXML_INCLUDE_DIR})
+target_link_libraries(Law_Enforcer pugixml)
+
 
 find_package(Box2D REQUIRED)
 if(Box2D_FOUND)

@@ -34,7 +34,7 @@ protected:
 public:
     Entity(b2Vec2 coordonnees, int pvmax, int damage_attack, int damage_dash, int damage_jump, int attack_stun,
            int dash_stun, int jump_stun, int dash_speed);
-    Entity(pugi::xml_node node);
+    Entity(b2World &world, pugi::xml_node node);
     virtual void dash(bool world_dash_rule, bool input_dash, b2Vec2& current_speed) = 0;
     //virtual void dash(bool world_dash_rule) = 0;
     //virtual void attack(bool world_attack_rule) = 0;
